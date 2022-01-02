@@ -32,11 +32,20 @@ class Gamefield:
             for bomb in range(0, 40):
                 newBombLocation = createTuple()
                 self.__bombLocationList.append(newBombLocation)
-                
+        
+        #~ place bombs in field
+        def placeBombs():
+            #* iterate through bombLocationList
+            for mockupBomb in self.__bombLocationList:
+                #* define x & y coordinates
+                x = mockupBomb[0]
+                y = mockupBomb[1]
+                #* place the bomb in field               
+                self.__field[x][y] = Bomb(x, y) 
+        
+        #~ use main created methods
         createBombLocations()
-        
-        #~ 
-        
+        placeBombs()
         
     
     def placeZeros(self):
@@ -52,12 +61,19 @@ class Gamefield:
     def addValue(self,x,y):
         pass
     
+    # show whole field
+    #def showField(self):
+     #   for tile
+    
     # Getter & Setter
     def getFieldSize(self):
         return self.__fieldSize
     
     def getBombLocationList(self):
         return self.__bombLocationList
+    
+    def getField(self):
+        return self.__field
     
 
 class Tile:
@@ -90,4 +106,4 @@ class Bomb(Tile):
 # test method
 gameBoard = Gamefield()
 gameBoard.placeBombs()
-print(gameBoard.getBombLocationList())
+print(gameBoard.getField()[0][1])
