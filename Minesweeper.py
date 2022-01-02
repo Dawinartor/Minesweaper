@@ -9,12 +9,10 @@ class Gamefield:
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
     
     def placeBombs(self):
-        '''  '''
-        
-        #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)] 40x bombs
+        '''Create random generated list of tuples and place out of them Bombs in filed'''
+
         #TODO: - check lists for duplications
         #TODO:  -> if duplication found: replace duplication by create new number which is not in list
-        #TODO: - place Bomb in gamefiled
         
         #~ create random int generator
         def generateRandomInt():
@@ -36,6 +34,8 @@ class Gamefield:
                 self.__bombLocationList.append(newBombLocation)
                 
         createBombLocations()
+        
+        #~ 
         
         
     
