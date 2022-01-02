@@ -1,10 +1,21 @@
 import numpy as np
 #row first
 
-array = np.zeros((16,16),dtype=object)
-
 class GameField:
     def __init__(self):
+        field = np.zeros((16,16),dtype=object)
+        fieldSize = field.size
+    
+    def placeZeros():
+        for x in range(0,np.size(array,0)):
+            for y in range(0,np.size(array,1)):
+
+                if  isinstance(array[x][y],Bomb) == True:
+                    addValue(x,y)
+
+                array[x][y] = Number(x,y)
+
+    def addValue(x,y):
         pass
 
 class Tile:
@@ -32,25 +43,3 @@ class Number(Tile):
 class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
-
-
-
-
-def placeZeros():
-    for x in range(0,np.size(array,0)):
-        for y in range(0,np.size(array,1)):
-
-            if  isinstance(array[x][y],Bomb) == True:
-                addValue(x,y)
-
-            array[x][y] = Number(x,y)
-
-def addValue(x,y):
-    pass
-
-
-placeZeros()
-
-array[1][1].increaseNumber()
-
-print(array[1][1].getNumber())
