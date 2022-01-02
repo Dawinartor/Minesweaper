@@ -3,19 +3,20 @@ import numpy as np
 
 class GameField:
     def __init__(self):
-        field = np.zeros((16,16),dtype=object)
-        fieldSize = field.size
+        self.field = np.zeros((16,16),dtype=object)
+        self.fieldSize = self.field.size
     
-    def placeZeros():
-        for x in range(0,np.size(array,0)):
-            for y in range(0,np.size(array,1)):
+    def placeZeros(self):
+        for x in range(0,np.size(self.field,0)):
+            for y in range(0,np.size(self.field,1)):
 
-                if  isinstance(array[x][y],Bomb) == True:
-                    addValue(x,y)
+                if  isinstance(self.field[x][y],Bomb) == True:
+                    pass
+                    #addValue(x,y)
 
-                array[x][y] = Number(x,y)
+                self.field[x][y] = Number(x,y)
 
-    def addValue(x,y):
+    def addValue(self,x,y):
         pass
 
 class Tile:
