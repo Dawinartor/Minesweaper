@@ -1,10 +1,19 @@
 import numpy as np
 #row first
 
-class GameField:
+class Gamefield:
     def __init__(self):
         self.field = np.zeros((16,16),dtype=object)
         self.fieldSize = self.field.size
+        self.bombLocationList = None # define return of placeBombs (tuple list)
+    
+    def placeBombs(self):
+        #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)]
+        #TODO: - check lists for duplications
+        #TODO:  -> if duplication found: replace duplication by create new number which is not in list
+        #TODO: - place Bomb in gamefiled
+        
+        #~ create 
     
     def placeZeros(self):
         for x in range(0,np.size(self.field,0)):
