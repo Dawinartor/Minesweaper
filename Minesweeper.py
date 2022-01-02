@@ -6,7 +6,7 @@ class Gamefield:
         self.__field = np.zeros((16,16),dtype=object)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
         self.__fieldSize = self.field.size
-        self.__bombLocationList = None # define return of placeBombs (tuple list)
+        self.__bombLocationList = [] # define return of placeBombs (tuple list)
     
     def placeBombs(self):
         
@@ -28,16 +28,13 @@ class Gamefield:
             bombCoordinates = (x, y)
             return bombCoordinates
         
-        #~ create bomb location list
+        #~ assign bomb to locationList
         def createBombLocations():
             for bomb in range(0, 40):
                 newBombLocation = createTuple()
-                self.
+                self.getBombLocationList.append(newBombLocation)
                 
-        
-        
-        
-        #~ create list of tuples with random
+        createBombLocations()
     
     def placeZeros(self):
         for x in range(0,np.size(self.field,0)):
