@@ -9,13 +9,31 @@ class Gamefield:
         self.__bombLocationList = None # define return of placeBombs (tuple list)
     
     def placeBombs(self):
+        
         #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)] 40x bombs
         #TODO: - check lists for duplications
         #TODO:  -> if duplication found: replace duplication by create new number which is not in list
         #TODO: - place Bomb in gamefiled
         
         #~ create random int generator
-        random.randint(0, self.)
+        def generateRandomInt():
+            randi = random.randint(0, self.getFieldSize() + 1)
+            return randi
+        
+        #~ create touple with using random int generator
+        def createTuple():
+            # generate x and y random integers
+            x = generateRandomInt()
+            y = generateRandomInt()
+            bombCoordinates = (x, y)
+            return bombCoordinates
+        
+        #~ create bomb location list
+        def createBombLocations():
+            for bomb in range(0, 40):
+                newBombLocation = createTuple()
+                self.
+                
         
         
         
@@ -37,6 +55,9 @@ class Gamefield:
     # Getter & Setter
     def getFieldSize(self):
         return self.__fieldSize
+    
+    def getBombLocationList(self):
+        return self.__bombLocationList
 
 class Tile:
     def __init__(self,x,y):
