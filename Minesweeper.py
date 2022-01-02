@@ -5,10 +5,11 @@ class Gamefield:
     def __init__(self):
         self.__field = np.zeros((16,16),dtype=object)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
-        self.__fieldSize = self.field.size
+        self.__fieldSize = self.__field.size
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
     
     def placeBombs(self):
+        '''  '''
         
         #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)] 40x bombs
         #TODO: - check lists for duplications
@@ -17,7 +18,7 @@ class Gamefield:
         
         #~ create random int generator
         def generateRandomInt():
-            randi = random.randint(0, self.getFieldSize() + 1)
+            randi = random.randint(0, 15) # 16 in total
             return randi
         
         #~ create touple with using random int generator
@@ -32,9 +33,11 @@ class Gamefield:
         def createBombLocations():
             for bomb in range(0, 40):
                 newBombLocation = createTuple()
-                self.getBombLocationList.append(newBombLocation)
+                self.__bombLocationList.append(newBombLocation)
                 
         createBombLocations()
+        
+        
     
     def placeZeros(self):
         for x in range(0,np.size(self.field,0)):
@@ -55,6 +58,7 @@ class Gamefield:
     
     def getBombLocationList(self):
         return self.__bombLocationList
+    
 
 class Tile:
     def __init__(self,x,y):
@@ -81,3 +85,9 @@ class Number(Tile):
 class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
+
+
+# test method
+gameBoard = Gamefield()
+gameBoard.placeBombs()
+print(gameBoard.getBombLocationList())
