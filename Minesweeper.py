@@ -1,5 +1,6 @@
 import numpy as np
-#row first
+from matplotlib import pyplot as plt
+import random
 
 class Gamefield:
     def __init__(self):
@@ -7,18 +8,45 @@ class Gamefield:
         self.__fieldSize = self.__field.size
         self.fieldSizeX = np.size(self.__field,0)
         self.fieldSizeY  = np.size(self.__field,1)
-        self.__bombLocationList = None # define return of placeBombs (tuple list)
+        self.__bombLocationList = [] # define return of placeBombs (tuple list)
+        self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
     
         self.placeZeros()
-        #self.addValue()
+        self.placeBombs()
+        self.addValue()
+
+        self.test = np.zeros((16,16))
+        for x in range(0,self.fieldSizeX):
+            for y in range(0,self.fieldSizeY):
+                self.test[x][y] = self.__field[x][y].getNumber()
             
     def placeBombs(self):
-        #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)]
+        '''  '''
+        #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)] 40x bombs
         #TODO: - check lists for duplications
         #TODO:  -> if duplication found: replace duplication by create new number which is not in list
         #TODO: - place Bomb in gamefiled
         
-        pass
+        #~ create random int generator
+        def generateRandomInt():
+            randi = random.randint(0, 15) # 16 in total
+            return randi
+        
+        #~ create touple with using random int generator
+        def createTuple():
+            # generate x and y random integers
+            x = generateRandomInt()
+            y = generateRandomInt()
+            bombCoordinates = (x, y)
+            return bombCoordinates
+        
+        #~ assign bomb to locationList
+        def createBombLocations():
+            for bomb in range(0, 40):
+                newBombLocation = createTuple()
+                self.__bombLocationList.append(newBombLocation)
+                
+        createBombLocations()
     
     def placeZeros(self):
         for x in range(0,self.fieldSizeX):
@@ -32,18 +60,28 @@ class Gamefield:
     def addValue(self):
         '''Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects'''
         for location in self.__bombLocationList:
-            x = location[0]
-            y = location[1]
+            try:
+                x = location[0]
+                y = location[1]
 
-            self.__field[x+1][y].increaseNumber()
-            self.__field[x][y+1].increaseNumber()
-            self.__field[x-1][y].increaseNumber()
-            self.__field[x][y-1].increaseNumber()
-            self.__field[x+1][y+1].increaseNumber()
-            self.__field[x-1][y-1].increaseNumber()
-            self.__field[x+1][y-1].increaseNumber()
-            self.__field[x-1][y+1].increaseNumber()
-
+                self.__field[x+1][y].increaseNumber()
+                self.__field[x][y+1].increaseNumber()
+                self.__field[x-1][y].increaseNumber()
+                self.__field[x][y-1].increaseNumber()
+                self.__field[x+1][y+1].increaseNumber()
+                self.__field[x-1][y-1].increaseNumber()
+                self.__field[x+1][y-1].increaseNumber()
+                self.__field[x-1][y+1].increaseNumber()
+            except:
+                continue
+    
+    # Getter & Setter
+    def getFieldSize(self):
+        return self.__fieldSize
+    
+    def getBombLocationList(self):
+        return self.__bombLocationList
+    
 
 class Tile:
     def __init__(self,x,y):
@@ -72,3 +110,5 @@ class Bomb(Tile):
 
 game = Gamefield()
 
+plt.imshow(game.test, interpolation='nearest')
+plt.show()
