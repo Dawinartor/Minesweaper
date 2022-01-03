@@ -101,7 +101,6 @@ class Gamefield:
     def getField(self):
         return self.__field
     
-
 class Tile:
     def __init__(self,x,y):
         self.__x = x
