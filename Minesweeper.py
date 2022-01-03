@@ -28,8 +28,6 @@ class Gamefield:
         
         #TODO: check for a numpy alternative
         
-        #FIX: Generate unique tuples directl
-        
         #~ create bombLocationList with unique locations
         def createBombLocationList():
             self.__bombLocationList = sample(list(product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)), k=self.__bombCount)
@@ -47,10 +45,7 @@ class Gamefield:
         #~ use main created methods
         createBombLocationList()
         placeBombs()
-        print(self.getField())
 
-        
-    
     def placeZeros(self):
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
@@ -114,10 +109,11 @@ class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
         
+    # this is for testing purpose
     def getNumber(self):
         return
     
 
 game = Gamefield()
-plt.imshow(game.test, interpolation='nearest')
+plt.imshow(game.test)
 plt.show()
