@@ -1,5 +1,6 @@
 import numpy as np
 import random
+from collections import Counter
 
 class Gamefield:
     def __init__(self):
@@ -19,7 +20,7 @@ class Gamefield:
             randi = random.randint(0, 15) # 16 in total
             return randi
         
-        #~ create touple with using random int generator
+        #~ create tuple with using random int generator
         def createTuple():
             # generate x and y random integers
             x = generateRandomInt()
@@ -29,9 +30,16 @@ class Gamefield:
         
         #~ assign bomb to locationList
         def createBombLocations():
-            for bomb in range(0, 40):
+            for bomb in range(0, ):
                 newBombLocation = createTuple()
                 self.__bombLocationList.append(newBombLocation)
+                
+        #~ check bombLocationList for duplicated tuples
+        def removeDuplications():
+            for tile in self.__bombLocationList:
+                
+        Counter()
+        set() # create a new set
         
         #~ place bombs in field
         def placeBombs():
@@ -45,7 +53,9 @@ class Gamefield:
         
         #~ use main created methods
         createBombLocations()
+        removeDuplications()
         placeBombs()
+
         
     
     def placeZeros(self):
@@ -106,4 +116,4 @@ class Bomb(Tile):
 # test method
 gameBoard = Gamefield()
 gameBoard.placeBombs()
-print(gameBoard.getField()[0][1])
+print(gameBoard.getField())
