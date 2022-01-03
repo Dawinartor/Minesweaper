@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 import random
 
 class Gamefield:
@@ -9,16 +8,12 @@ class Gamefield:
         self.fieldSizeX = np.size(self.__field,0)
         self.fieldSizeY  = np.size(self.__field,1)
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
-        self.__bombCount = 20 # based on 40 bombs for 256 Tiles 
+        self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
     
         self.placeZeros()
         self.placeBombs()
         self.addValue()
 
-        self.test = np.zeros((16,16))
-        for x in range(0,self.fieldSizeX):
-            for y in range(0,self.fieldSizeY):
-                self.test[x][y] = self.__field[x][y].getNumber()
             
     def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
@@ -78,11 +73,11 @@ class Gamefield:
             locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
 
             for value in locationList:
-                if not ((value[0] < 0 or value[1] < 0) or (value[0] > 15 or value[1] > 15)):
+                if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
                     try:
                         self.__field[value[0]][value[1]].increaseNumber()
                     except:
-                        pass
+                        continue
                   
     # Getter & Setter
     def getFieldSize(self):
@@ -120,11 +115,5 @@ class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
     
-    #test
-    def getNumber(self):
-        return 
 
 game = Gamefield()
-
-plt.imshow(game.test, interpolation='nearest')
-plt.show()
