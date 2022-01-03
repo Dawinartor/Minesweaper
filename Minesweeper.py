@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from collections import Counter
+from matplotlib import pyplot as plt
 from itertools import product
 from random import sample
 
@@ -16,6 +16,11 @@ class Gamefield:
         self.placeZeros()
         self.placeBombs()
         self.addValue()
+        
+        self.test = np.zeros((16,16))
+        for x in range(0,self.fieldSizeX):
+            for y in range(0,self.fieldSizeY):
+                self.test[x][y] = self.__field[x][y].getNumber()
 
             
     def placeBombs(self):
@@ -108,6 +113,11 @@ class Number(Tile):
 class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
+        
+    def getNumber(self):
+        return
     
 
 game = Gamefield()
+plt.imshow(game.test, interpolation='nearest')
+plt.show()
