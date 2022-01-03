@@ -9,7 +9,7 @@ class Gamefield:
         self.fieldSizeX = np.size(self.__field,0)
         self.fieldSizeY  = np.size(self.__field,1)
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
-        self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
+        self.__bombCount = 20 # based on 40 bombs for 256 Tiles 
     
         self.placeZeros()
         self.placeBombs()
@@ -21,11 +21,10 @@ class Gamefield:
                 self.test[x][y] = self.__field[x][y].getNumber()
             
     def placeBombs(self):
-        '''  '''
-        #TODO: create random generated list of tuple for x & y like [(1,3),(1,5),(1,4)] 40x bombs
+        '''Create random generated list of tuples and place out of them Bombs in filed'''
+
         #TODO: - check lists for duplications
         #TODO:  -> if duplication found: replace duplication by create new number which is not in list
-        #TODO: - place Bomb in gamefiled
         
         #~ create random int generator
         def generateRandomInt():
@@ -42,12 +41,24 @@ class Gamefield:
         
         #~ assign bomb to locationList
         def createBombLocations():
-            for bomb in range(0, 40):
+            for bomb in range(0,self.__bombCount):
                 newBombLocation = createTuple()
                 self.__bombLocationList.append(newBombLocation)
-                
+        
+        #~ place bombs in field
+        def placeBombs():
+            #* iterate through bombLocationList
+            for mockupBomb in self.__bombLocationList:
+                #* define x & y coordinates
+                x = mockupBomb[0]
+                y = mockupBomb[1]
+                #* place the bomb in field               
+                self.__field[x][y] = Bomb(x, y) 
+        
+        #~ use main created methods
         createBombLocations()
-    
+        placeBombs()
+        
     def placeZeros(self):
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
@@ -59,28 +70,29 @@ class Gamefield:
 
     def addValue(self):
         '''Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects'''
-        for location in self.__bombLocationList:
-            try:
-                x = location[0]
-                y = location[1]
 
-                self.__field[x+1][y].increaseNumber()
-                self.__field[x][y+1].increaseNumber()
-                self.__field[x-1][y].increaseNumber()
-                self.__field[x][y-1].increaseNumber()
-                self.__field[x+1][y+1].increaseNumber()
-                self.__field[x-1][y-1].increaseNumber()
-                self.__field[x+1][y-1].increaseNumber()
-                self.__field[x-1][y+1].increaseNumber()
-            except:
-                continue
-    
+        for location in self.__bombLocationList:
+            x = location[0]
+            y = location[1]
+            
+            locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
+
+            for value in locationList:
+                if not ((value[0] < 0 or value[1] < 0) or (value[0] > 15 or value[1] > 15)):
+                    try:
+                        self.__field[value[0]][value[1]].increaseNumber()
+                    except:
+                        pass
+                  
     # Getter & Setter
     def getFieldSize(self):
         return self.__fieldSize
     
     def getBombLocationList(self):
         return self.__bombLocationList
+    
+    def getField(self):
+        return self.__field
     
 
 class Tile:
@@ -107,6 +119,10 @@ class Number(Tile):
 class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
+    
+    #test
+    def getNumber(self):
+        return 
 
 game = Gamefield()
 
