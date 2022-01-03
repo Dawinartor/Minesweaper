@@ -37,17 +37,16 @@ class Gamefield:
         
         #~ assign bomb to locationList
         def createBombLocations():
-            for bomb in range(0, ):
+            for bomb in range(0, self.getBombCount()):
                 newBombLocation = createTuple()
                 self.__bombLocationList.append(newBombLocation)
                 
         #~ check bombLocationList for duplicated tuples
         def removeDuplications():
-            for tile in self.__bombLocationList:
-                pass
-                
-        #Counter()
-        #set() # create a new set
+            #for tile in self.__bombLocationList:
+             #   pass
+            doubledTuples = list(set([element for element in self.__bombLocationList if self.__bombLocationList.count(element) > 1]))
+            print(self.getBombLocationList())
         
         #~ place bombs in field
         def placeBombs():
@@ -61,6 +60,9 @@ class Gamefield:
         
         #~ use main created methods
         createBombLocations()
+        
+        print(self.__bombLocationList)
+        
         removeDuplications()
         placeBombs()
 
@@ -97,6 +99,9 @@ class Gamefield:
     
     def getBombLocationList(self):
         return self.__bombLocationList
+    
+    def getBombCount(self):
+        return self.__bombCount
     
     def getField(self):
         return self.__field
