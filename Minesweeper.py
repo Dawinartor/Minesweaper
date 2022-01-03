@@ -1,6 +1,8 @@
 import numpy as np
 import random
 from collections import Counter
+from itertools import product
+from random import sample
 
 class Gamefield:
     def __init__(self):
@@ -18,36 +20,15 @@ class Gamefield:
             
     def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
-
-        #TODO: - check lists for duplications
-        #TODO:  -> if duplication found: replace duplication by create new number which is not in list
         
-        #~ create random int generator
-        def generateRandomInt():
-            randi = random.randint(0, 15) # 16 in total
-            return randi
+        #TODO: check for a numpy alternative
         
-        #~ create tuple with using random int generator
-        def createTuple():
-            # generate x and y random integers
-            x = generateRandomInt()
-            y = generateRandomInt()
-            bombCoordinates = (x, y)
-            return bombCoordinates
+        #FIX: Generate unique tuples directl
         
-        #~ assign bomb to locationList
-        def createBombLocations():
-            for bomb in range(0, self.getBombCount()):
-                newBombLocation = createTuple()
-                self.__bombLocationList.append(newBombLocation)
+        #~ create bombLocationList with unique locations
+        def createBombLocationList():
+            self.__bombLocationList = sample(list(product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)), k=self.__bombCount)
                 
-        #~ check bombLocationList for duplicated tuples
-        def removeDuplications():
-            #for tile in self.__bombLocationList:
-             #   pass
-            doubledTuples = list(set([element for element in self.__bombLocationList if self.__bombLocationList.count(element) > 1]))
-            print(self.getBombLocationList())
-        
         #~ place bombs in field
         def placeBombs():
             #* iterate through bombLocationList
@@ -59,12 +40,9 @@ class Gamefield:
                 self.__field[x][y] = Bomb(x, y) 
         
         #~ use main created methods
-        createBombLocations()
-        
-        print(self.__bombLocationList)
-        
-        removeDuplications()
+        createBombLocationList()
         placeBombs()
+        print(self.getField())
 
         
     
