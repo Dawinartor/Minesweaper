@@ -1,6 +1,8 @@
 import numpy as np
 import random
-from collections import Counter
+from matplotlib import pyplot as plt
+from itertools import product
+from random import sample
 
 class Gamefield:
     def __init__(self):
@@ -14,41 +16,22 @@ class Gamefield:
         self.placeZeros()
         self.placeBombs()
         self.addValue()
+        
+        self.test = np.zeros((16,16))
+        for x in range(0,self.fieldSizeX):
+            for y in range(0,self.fieldSizeY):
+                self.test[x][y] = self.__field[x][y].getNumber()
 
             
     def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
-
-        #TODO: - check lists for duplications
-        #TODO:  -> if duplication found: replace duplication by create new number which is not in list
         
-        #~ create random int generator
-        def generateRandomInt():
-            randi = random.randint(0, 15) # 16 in total
-            return randi
+        #TODO: check for a numpy alternative
         
-        #~ create tuple with using random int generator
-        def createTuple():
-            # generate x and y random integers
-            x = generateRandomInt()
-            y = generateRandomInt()
-            bombCoordinates = (x, y)
-            return bombCoordinates
-        
-        #~ assign bomb to locationList
-        def createBombLocations():
-            for bomb in range(0, ):
-                newBombLocation = createTuple()
-                self.__bombLocationList.append(newBombLocation)
+        #~ create bombLocationList with unique locations
+        def createBombLocationList():
+            self.__bombLocationList = sample(list(product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)), k=self.__bombCount)
                 
-        #~ check bombLocationList for duplicated tuples
-        def removeDuplications():
-            for tile in self.__bombLocationList:
-                pass
-                
-        #Counter()
-        #set() # create a new set
-        
         #~ place bombs in field
         def placeBombs():
             #* iterate through bombLocationList
@@ -60,12 +43,9 @@ class Gamefield:
                 self.__field[x][y] = Bomb(x, y) 
         
         #~ use main created methods
-        createBombLocations()
-        removeDuplications()
+        createBombLocationList()
         placeBombs()
 
-        
-    
     def placeZeros(self):
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
@@ -98,6 +78,9 @@ class Gamefield:
     def getBombLocationList(self):
         return self.__bombLocationList
     
+    def getBombCount(self):
+        return self.__bombCount
+    
     def getField(self):
         return self.__field
     
@@ -125,6 +108,12 @@ class Number(Tile):
 class Bomb(Tile):
     def __init__(self, x, y):
         super().__init__(x, y)
+        
+    # this is for testing purpose
+    def getNumber(self):
+        return
     
 
 game = Gamefield()
+plt.imshow(game.test)
+plt.show()
