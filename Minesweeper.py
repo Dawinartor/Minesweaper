@@ -214,7 +214,6 @@ class Number(Tile):
     Attributes
     ----------
     number: int,defualt=0
-        
     
     '''
     def __init__(self, x, y,number = 0):
@@ -222,12 +221,22 @@ class Number(Tile):
         super().__init__(x, y)
 
     def getNumber(self):
+        '''returns __number'''
         return self.__number
 
     def increaseNumber(self):
+        '''adds one to __number'''
         self.__number += 1
 
 class Bomb(Tile):
+    '''
+    A class represent tile contains number.
+    ...
+    
+    Inherit
+    -------
+    Tile class
+    '''
     def __init__(self, x, y):
         super().__init__(x, y)
     
