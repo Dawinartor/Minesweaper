@@ -2,6 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 from itertools import product
 from random import sample
+from Number import Number
+from Bomb import Bomb
 
 class Gamefield:
     """
@@ -121,91 +123,7 @@ class Gamefield:
         '''returns __field'''
         return self.__field
     
-class Tile:
-    '''
-    A class to represent a Tile.
-    ...
-
-    Attributes
-    ----------
-    __x : int
-        x coordinate
-    __y : int
-        y coordinate
-    width : int
-        width of the tile
-    height: int
-        height of the tile
-
-    Methods
-    -------
-    getLocation():
-        returns __x and __y
-
-    '''
-    def __init__(self,x,y):
-        '''"""
-        Constructs all the necessary attributes for the tile object.
-
-        Parameters
-        ----------
-        x: int
-            x coordinate of the tile
-        y: int
-            y coordinate of the tile
-        '''
-        self.__x = x
-        self.__y = y
-        self.width = 16
-        self.height = 16
-
-    def getLocation(self):
-        '''returns __x and __y'''
-        return self.__x,self.__y
-
-class Number(Tile):
-    '''
-    A class represent tile contains number.
-    ...
     
-    Inherit
-    -------
-    Tile class
-
-    Attributes
-    ----------
-    number: int,defualt=0
-    
-    '''
-    def __init__(self, x, y,number = 0):
-        self.__number = number
-        super().__init__(x, y)
-
-    def getNumber(self):
-        '''returns __number'''
-        return self.__number
-
-    def increaseNumber(self):
-        '''adds one to __number'''
-        self.__number += 1
-
-class Bomb(Tile):
-    '''
-    A class represent tile contains number.
-    ...
-    
-    Inherit
-    -------
-    Tile class
-    '''
-    def __init__(self, x, y):
-        super().__init__(x, y)
-        
-    # this is for testing purpose
-    def getNumber(self):
-        return
-    
-
 game = Gamefield()
 plt.imshow(game.test)
 plt.show()
