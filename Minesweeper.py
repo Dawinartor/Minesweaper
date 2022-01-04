@@ -50,7 +50,7 @@ class Gamefield:
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
 
-                if  isinstance(self.__field[x][y],Bomb) == True:
+                if isinstance(self.__field[x][y],Bomb) == True:
                     continue
 
                 self.__field[x][y] = Number(x,y)
