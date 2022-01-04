@@ -115,6 +115,7 @@ class Gamefield:
         return self.__bombLocationList
     
     def getBombCount(self):
+        '''return __bombCount'''
         return self.__bombCount
     
     def getField(self):
