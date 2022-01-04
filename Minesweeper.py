@@ -1,5 +1,4 @@
 import numpy as np
-import random
 from matplotlib import pyplot as plt
 from itertools import product
 from random import sample
@@ -60,13 +59,10 @@ class Gamefield:
     def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
         
-        #TODO: check for a numpy alternative
-        
-        #~ create bombLocationList with unique locations
         def createBombLocationList():
+            #TODO: descripe one line code
             self.__bombLocationList = sample(list(product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)), k=self.__bombCount)
                 
-        #~ place bombs in field
         def placeBombs():
             '''Itarets through __bombLocationList and creates bomb objects at that coordinate
             '''
