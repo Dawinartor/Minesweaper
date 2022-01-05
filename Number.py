@@ -11,6 +11,9 @@ class Number(Tile):
     Attributes
     ----------
     number: int,defualt=0
+
+    isLightUp: boolen
+        defines if tile is showing
     
     '''
     def __init__(self, x, y,number = 0):

@@ -48,7 +48,7 @@ class Gamefield:
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
     
-        self.placeZeros()
+        self.placeTiles()
         self.placeBombs()
         self.addValue()
         
@@ -66,7 +66,7 @@ class Gamefield:
             self.__bombLocationList = sample(list(product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)), k=self.__bombCount)
                 
         def placeBombs():
-            '''Itarets through __bombLocationList and creates bomb objects at that coordinate
+            '''Iterates through __bombLocationList and creates bomb objects at that coordinate
             '''
             for mockupBomb in self.__bombLocationList:
                 #* define x & y coordinates
@@ -79,7 +79,7 @@ class Gamefield:
         createBombLocationList()
         placeBombs()
 
-    def placeZeros(self):
+    def placeTiles(self):
         '''Fills field array with number objects
         '''
         for x in range(0,self.fieldSizeX):
@@ -107,7 +107,10 @@ class Gamefield:
                         self.__field[value[0]][value[1]].increaseNumber()
                     except:
                         continue
-                  
+
+    def changeIsLightUp(self):
+        pass
+
     def getFieldSize(self):
         '''returns __fieldSize'''
         return self.__fieldSize
