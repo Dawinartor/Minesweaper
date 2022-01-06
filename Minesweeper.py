@@ -4,6 +4,8 @@ from itertools import product
 from random import sample
 from Number import Number
 from Bomb import Bomb
+import sys 
+sys.setrecursionlimit(4000)
 
 class Gamefield:
     """
@@ -52,14 +54,21 @@ class Gamefield:
         self.placeBombs()
         self.addValue()
         
-        self.isLightUpChanger(2,2)
+        self.isLightUpChanger(1,2)
 
         self.test = np.zeros((16,16))
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
                 self.test[x][y] = self.__field[x][y].getNumber()
+        
+        self.test2 = np.zeros((16,16))
+        for x in range(0,self.fieldSizeX):
+            for y in range(0,self.fieldSizeY):
+                try:
+                    self.test[x][y] = self.__field[x][y].getisLightUp()
+                except:
+                    pass
 
-            
     def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
         
@@ -110,20 +119,32 @@ class Gamefield:
                     except:
                         continue
 
-    def isLightUpChanger(self,x,y):
-        locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
-        tile = self.__field[x][y]
-        if isinstance(tile,Bomb) == True:
-            print("Bomb")
-        else:
-            tile.changeisLightUp()
-            if tile.getNumber() == 0:
-                for value in locationList:
-                        if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
-                            
+    def isLightUpChanger(self,x,y):          
+            tile = self.__field[x][y]
+
+            if isinstance(tile,Bomb) == True:
+                print("Bomb")
+            elif tile.getisLightUp() == False:
+                if tile.getNumber() == 0:
+                    tile.changeisLightUp()
+                    self.blankOpener(x,y) 
+                else: 
+                    tile.changeisLightUp()
+                
                 
 
-       
+    def blankOpener(self,x,y):
+        locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
+        for value in locationList:
+                if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
+                    try:
+                        if self.__field[value[0]][value[1]].getisLightUp() == False:
+                            self.isLightUpChanger(value[0],value[1])
+                    except:
+                        pass
+
+        
+
 
 
 
@@ -142,7 +163,12 @@ class Gamefield:
         '''returns __field'''
         return self.__field
     
-    
+
 game = Gamefield()
-plt.imshow(game.test)
+
+f, ax = plt.subplots(1,2)
+
+ax[0].imshow(game.test) #first image
+ax[1].imshow(game.test2) #second image
 plt.show()
+
