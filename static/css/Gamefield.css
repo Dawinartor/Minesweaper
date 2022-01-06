@@ -10,11 +10,14 @@ body {
     margin: 0.5em; /* equal to 4px */
     display: flex;
     flex-wrap: wrap;
+    align-content: flex-start;
+    overflow: scroll;
 }
 
 .tile {
     width: 2em;
     height: 2em;
     background-color: rgb(255, 0, 128);
-    margin: 0.2em; /* equal to 3.2px boarder between Tiles*/
+    margin: 0.10em; /* equal to 3.2px boarder between Tiles*/
+    display: flex;
 }

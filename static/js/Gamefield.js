@@ -19,19 +19,21 @@ function preProcessingGameobject(backEndJSON) {
  */
 function buildGamefield(gameObject) {
     // create divs which represets Tiles
-    var tileList = [256]; //gameObject.__fieldSize = 256
+    var tileList = []; //gameObject.__fieldSize = 256
 
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 256 ; i++) {
 
         var newTile = document.createElement('div');
         newTile.className = 'tile';
 
-        // append it in HTML
+        // append it in HTML for game visualization
         gamefield.appendChild(newTile);
-        // append to tileList
+        // append to tileList 
         tileList.push(newTile);
 
     }
+
+    console.log(tileList.length);
 
 }
 
