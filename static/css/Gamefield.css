@@ -8,6 +8,8 @@ body {
     width: 40em;
     height: 32em;
     margin: 0.5em; /* equal to 4px */
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .tile {

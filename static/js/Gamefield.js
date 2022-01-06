@@ -21,15 +21,17 @@ function buildGamefield(gameObject) {
     // create divs which represets Tiles
     var tileList = [256]; //gameObject.__fieldSize = 256
 
-    for (let i = 0; i < tileList.length; i++) {
+    for (let i = 0; i < 40; i++) {
 
         var newTile = document.createElement('div');
         newTile.className = 'tile';
+
+        // append it in HTML
         gamefield.appendChild(newTile);
+        // append to tileList
+        tileList.push(newTile);
 
     }
-
-    console.log(tileList[0]);
 
 }
 
