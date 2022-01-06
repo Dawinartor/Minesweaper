@@ -2,11 +2,16 @@
 <html>
     <head>
         <title>Minesweeper</title>                 <!-- endpoint or folder , file -->
-        <script type="text/javascript" src="{{ url_for('static', filename='js/Gamefield.js') }}"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='js/Gamefield.js') }}" defer></script>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/Gamefield.css') }}">
     </head>
 
     <body>
-        <div id="gamefield"></div>
+        <div id="gamefield">
+            <!--
+                <div class="tile"></div>
+                <div class="tile"></div>
+            -->
+        </div>
     </body>
 </html>
