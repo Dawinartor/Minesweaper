@@ -4,8 +4,6 @@ from itertools import product
 from random import sample
 from Number import Number
 from Bomb import Bomb
-import sys 
-sys.setrecursionlimit(4000)
 
 class Gamefield:
     """
@@ -35,6 +33,10 @@ class Gamefield:
         Fills field array with number objects.
     addValue():
         Manipulates number objects around bombs.
+    isLightUpChanger(x,y):
+        Checks and changes isLightup of a given tile
+    blankOpener(x,y):
+        Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()
     getFieldSize():
         returns __fieldSize
     getBombLocationList():
@@ -48,13 +50,13 @@ class Gamefield:
         self.fieldSizeX = np.size(self.__field,0)
         self.fieldSizeY  = np.size(self.__field,1)
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
-        self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
-    
+        self.__bombCount = 1 # based on 40 bombs for 256 Tiles 
+        
         self.placeTiles()
         self.placeBombs()
         self.addValue()
-        
-        self.isLightUpChanger(1,2)
+
+        #self.isLightUpChanger(0,0)
 
         self.test = np.zeros((16,16))
         for x in range(0,self.fieldSizeX):
@@ -65,7 +67,7 @@ class Gamefield:
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
                 try:
-                    self.test[x][y] = self.__field[x][y].getisLightUp()
+                    self.test2[x][y] = self.__field[x][y].getisLightUp()
                 except:
                     pass
 
@@ -109,44 +111,40 @@ class Gamefield:
         for location in self.__bombLocationList:
             x = location[0]
             y = location[1]
-            
-            locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
+            surroundList = self.__field[x][y].getsurroundList()
 
-            for value in locationList:
+            for value in surroundList:
                 if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
                     try:
                         self.__field[value[0]][value[1]].increaseNumber()
                     except:
                         continue
 
-    def isLightUpChanger(self,x,y):          
-            tile = self.__field[x][y]
+    def isLightUpChanger(self,x,y):
+        '''Checks and changes isLightup of a given tile.
 
-            if isinstance(tile,Bomb) == True:
-                print("Bomb")
-            elif tile.getisLightUp() == False:
-                if tile.getNumber() == 0:
-                    tile.changeisLightUp()
-                    self.blankOpener(x,y) 
-                else: 
-                    tile.changeisLightUp()
-                
-                
-
-    def blankOpener(self,x,y):
-        locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
-        for value in locationList:
-                if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
-                    try:
-                        if self.__field[value[0]][value[1]].getisLightUp() == False:
-                            self.isLightUpChanger(value[0],value[1])
-                    except:
-                        pass
-
+        If the tile is not bomb it changes isLightUp and also If the tile is "blank" it calls blankOpener()'''
+        tile = self.__field[x][y]
         
-
-
-
+        if isinstance(tile,Bomb) == True:
+            print("Bomb")
+        elif tile.getisLightUp() == False:
+            if tile.getNumber() == 0:
+                tile.changeisLightUp()
+                self.blankOpener(x,y) 
+            else: 
+                tile.changeisLightUp()
+                              
+    def blankOpener(self,x,y):
+        '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
+        surroundList = self.__field[x][y].getsurroundList()
+        for value in surroundList:
+            if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
+                try:
+                    if self.__field[value[0]][value[1]].getisLightUp() == False:
+                        self.isLightUpChanger(value[0],value[1])
+                except:
+                    pass
 
     def getFieldSize(self):
         '''returns __fieldSize'''
@@ -166,9 +164,9 @@ class Gamefield:
 
 game = Gamefield()
 
-f, ax = plt.subplots(1,2)
 
-ax[0].imshow(game.test) #first image
-ax[1].imshow(game.test2) #second image
+f, ax = plt.subplots(1,2)
+ax[1].imshow(game.test) #first image
+ax[0].imshow(game.test2) #second image
 plt.show()
 

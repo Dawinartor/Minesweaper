@@ -19,6 +19,7 @@ class Number(Tile):
     def __init__(self, x, y,number = 0):
         self.__number = number
         self.__isLightUp = False
+        
         super().__init__(x, y)
 
     def getNumber(self):
@@ -28,9 +29,11 @@ class Number(Tile):
     def increaseNumber(self):
         '''adds one to __number'''
         self.__number += 1
+   
     def getisLightUp(self):
         '''returns __isLightUp'''
         return self.__isLightUp
+    
     def changeisLightUp(self):
         '''changes current state of __isLightUp'''
         self.__isLightUp = not self.__isLightUp

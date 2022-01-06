@@ -30,12 +30,22 @@ class Tile:
             x coordinate of the tile
         y: int
             y coordinate of the tile
+
+        Attrubutes
+        ----------
+        surroundList: list
+            contains all neigbhor tile's coordinates
         '''
         self.__x = x
         self.__y = y
         self.width = 16
         self.height = 16
+        self.__surroundList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
 
     def getLocation(self):
         '''returns __x and __y'''
         return self.__x,self.__y
+
+    def getsurroundList(self):
+        '''returns __surroundList'''
+        return self.__surroundList
