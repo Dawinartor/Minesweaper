@@ -22,19 +22,29 @@ function buildGamefield(gameObject) {
     var tileList = []; //gameObject.__fieldSize = 256
 
     for (let i = 0; i < 256 ; i++) {
-
-        var newTile = document.createElement('div');
+        let newTile = document.createElement('div');
+        // define div classname as tile
         newTile.className = 'tile';
 
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
         // append to tileList 
         tileList.push(newTile);
-
     }
 
-    console.log(tileList.length);
+    // Get tile elements from DOM
+    const tiles = document.querySelectorAll('.tile');
 
+    // Function to toggle popup (toggles .active) 
+    const clickedTileCoordinates = () => {
+        console.log( "xyz" );
+        tiles.classList.toggle("active"); 
+    };
+
+    // Assign event listener with callback to every button:
+    tiles.forEach((tile) => {
+        tile.addEventListener("click", clickedTileCoordinates);
+    });
 }
 
 buildGamefield(null);
