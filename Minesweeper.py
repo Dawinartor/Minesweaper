@@ -52,6 +52,8 @@ class Gamefield:
         self.placeBombs()
         self.addValue()
         
+        self.isLightUpChanger(2,2)
+
         self.test = np.zeros((16,16))
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
@@ -108,8 +110,22 @@ class Gamefield:
                     except:
                         continue
 
-    def changeIsLightUp(self):
-        pass
+    def isLightUpChanger(self,x,y):
+        locationList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
+        tile = self.__field[x][y]
+        if isinstance(tile,Bomb) == True:
+            print("Bomb")
+        else:
+            tile.changeisLightUp()
+            if tile.getNumber() == 0:
+                for value in locationList:
+                        if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
+                            
+                
+
+       
+
+
 
     def getFieldSize(self):
         '''returns __fieldSize'''
