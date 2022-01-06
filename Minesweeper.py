@@ -50,7 +50,7 @@ class Gamefield:
         self.fieldSizeX = np.size(self.__field,0)
         self.fieldSizeY  = np.size(self.__field,1)
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
-        self.__bombCount = 1 # based on 40 bombs for 256 Tiles 
+        self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
         
         self.placeTiles()
         self.placeBombs()
