@@ -1,6 +1,8 @@
 var gamefield = document.getElementById('gamefield');
 //TODO: Add test backEndJSON
 
+//TODO: Add developer faces instead of mines for the bombs
+
 /**
  * Preprocessing the JSON gameobject to get all values to work with
  * 
