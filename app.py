@@ -1,4 +1,8 @@
 from flask import Flask, render_template, redirect, request
+from Minesweeper import Gamefield
+
+# create Gamefield object
+newGame = Gamefield()
 
 app = Flask(__name__)
 

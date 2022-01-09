@@ -56,7 +56,6 @@ class Gamefield:
         self.placeTiles()
         self.placeBombs()
         self.addValue()
-        self.toJSON()
 
         #self.isLightUpChanger(0,0)
 
