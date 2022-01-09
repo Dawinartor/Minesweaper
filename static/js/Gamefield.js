@@ -1,5 +1,7 @@
 var gamefield = document.getElementById('gamefield');
 //TODO: Add test backEndJSON
+var user = JSON.parse('{{ user | safe}}');
+console.log(user);
 
 //TODO: Add developer faces instead of mines for the bombs
 
