@@ -4,6 +4,7 @@ from itertools import product
 from random import sample
 from Number import Number
 from Bomb import Bomb
+import json
 
 class Gamefield:
     """
@@ -55,6 +56,7 @@ class Gamefield:
         self.placeTiles()
         self.placeBombs()
         self.addValue()
+        self.toJSON()
 
         #self.isLightUpChanger(0,0)
 
@@ -145,6 +147,25 @@ class Gamefield:
                         self.isLightUpChanger(value[0],value[1])
                 except:
                     pass
+
+    def toJSON(self):
+        gfJson = dict()
+        gfJson['Gamefield'] = {'fieldSize':self.__fieldSize,
+        'fieldSizeX':self.fieldSizeX,
+        'fieldSizeY':self.fieldSizeY}
+
+        fieldList = list()
+        for row in self.__field:
+            for value in row:
+                tempDict = {}
+                x,y = value.getLocation()
+                className = type(value).__name__
+                tempDict["x"],tempDict['y'] = x,y
+                tempDict['className'] = className
+                fieldList.append(tempDict)
+
+        gfJson['Field'] = fieldList
+        return json.dumps(gfJson)
 
     def getFieldSize(self):
         '''returns __fieldSize'''
