@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request
 
 app = Flask(__name__)
 
-@app.route("/",methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 def index():
     return render_template('Gamefield.html')
         

@@ -21,9 +21,9 @@ function preProcessingGameobject(backEndJSON) {
  */
 function buildGamefield(gameObject) {
     // create divs which represets Tiles
-    var tileList = []; //gameObject.__fieldSize = 256
+    var tileList = [];
 
-    for (let i = 0; i < 256 ; i++) {
+    for (let i = 0; i < 256 ; i++) { //* gameObject.__fieldSize = 256
         let newTile = document.createElement('div');
         // define div classname as tile
         newTile.className = 'tile';
@@ -40,7 +40,7 @@ function buildGamefield(gameObject) {
     // Function to toggle popup (toggles .active) 
     const clickedTileCoordinates = () => {
         console.log( "xyz" );
-        tiles.classList.toggle("active"); 
+        // tiles.classList.toggle("active"); 
     };
 
     // Assign event listener with callback to every button:
