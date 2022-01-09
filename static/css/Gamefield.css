@@ -12,6 +12,10 @@ body { /* TODO: Add min size for the game */
     flex-wrap: wrap;
     align-content: flex-start;
     overflow: auto;
+
+    /* position of gamefield in center of screen */
+    transform: translateX(50%);
+
 }
 
 .tile {
