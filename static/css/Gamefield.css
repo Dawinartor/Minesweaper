@@ -1,0 +1,27 @@
+body { /* TODO: Add min size for the game */
+    background-color: rgb(179, 47, 150);
+    margin: 0.2em;
+}
+
+#gamefield { /* Gamefield has to be always big enough to fit 16x16 Tiles inside */
+    background-color: rgb(255, 187, 103);
+    width: calc(40px * 16 + 4.3%);
+    height: calc(40px * 16 + 5%);
+    margin: 0.5em; /* equal to 4px */
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    overflow: auto;
+
+    /* position of gamefield in center of screen */
+    transform: translateX(50%);
+
+}
+
+.tile {
+    width: 40px;
+    height: 40px;
+    background-color: rgb(255, 0, 128);
+    margin: 0.1em;
+    display: flex;
+}

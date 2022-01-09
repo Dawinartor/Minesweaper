@@ -1,13 +1,10 @@
-from flask import Flask
+from flask import Flask, render_template, redirect, request
 
 app = Flask(__name__)
 
-@app.route("/",methods=['GET', 'POST'])
-def page1():
-    return '''
-    <form method="post">
-        <button name="foo" value="upvote">Upvote</button>
-    </form>'''    
+@app.route("/", methods=['GET', 'POST'])
+def index():
+    return render_template('Gamefield.html')
         
 
 
