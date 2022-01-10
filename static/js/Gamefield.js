@@ -46,7 +46,9 @@ function buildGamefield(gameObject) {
         //newTile.createAttribute("valueX");
         //newTile.createAttribute("valueY");
 
-        newTile.setAttribute('className', gameObject.)
+        // define all needed tile values in each tile
+        newTile.setAttribute('className', 'Bomb');
+
 
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
@@ -59,7 +61,7 @@ function buildGamefield(gameObject) {
 
     // Function to toggle popup (toggles .active) 
     const clickedTileCoordinates = () => {
-        console.log( "xyz" );
+        console.log( tileList );
         // tiles.classList.toggle("active"); 
     };
 
