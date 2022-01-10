@@ -14,12 +14,14 @@ def index():                                # define data to give from back-end 
 # test Flask JSON object using in external JS file
 @app.route("/startGame", methods=['GET', 'POST']) # access this with fetch api in js
 def testGame(): 
-    # GET request is default method
+    # GET request is default method 
     newGame = Gamefield()
     message = newGame.toJSON() # return is string
     return message
         
-
+@app.route('/game',methods=['GET', 'POST'])
+def gameLoop():
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True)

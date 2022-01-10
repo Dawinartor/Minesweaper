@@ -174,7 +174,8 @@ class Gamefield:
                 tempDict['className'] = className
                 fieldList.append(tempDict)
 
-        gfJson['field'] = fieldList
+        gfJson['Gamefield']['field'] = fieldList
+
         return json.dumps(gfJson)
 
     def getFieldSize(self):
@@ -194,11 +195,9 @@ class Gamefield:
         return self.__field
     
 
-game = Gamefield()
-
-
-f, ax = plt.subplots(1,2)
-ax[1].imshow(game.test) #first image
-ax[0].imshow(game.test2) #second image
-plt.show()
+# game = Gamefield()
+# f, ax = plt.subplots(1,2)
+# ax[1].imshow(game.test) #first image
+# ax[0].imshow(game.test2) #second image
+# plt.show()
 
