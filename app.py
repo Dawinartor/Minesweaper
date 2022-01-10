@@ -15,7 +15,7 @@ def index():                                # define data to give from back-end 
 @app.route("/newGame", methods=['GET', 'POST'])
 def testGame():
     data = newGame.toJSON()
-    return render_template('Gamefield.html',data=data)
+    return render_template('Gamefield.html', gameData = data)
         
 
 
