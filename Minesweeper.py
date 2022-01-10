@@ -25,6 +25,8 @@ class Gamefield:
         contains locations of genereted bombs
     __bombCount: int
         amount of bomb in the field
+    __openedTileCount: int
+        amount of opened tiles
 
     Methods
     -------
@@ -38,6 +40,8 @@ class Gamefield:
         Checks and changes isLightup of a given tile
     blankOpener(x,y):
         Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()
+    toJSON():
+        Gets data from GameField and GameFiled.field and returns as a JSON formatted string
     getFieldSize():
         returns __fieldSize
     getBombLocationList():
@@ -50,8 +54,9 @@ class Gamefield:
         self.__fieldSize = self.__field.size
         self.fieldSizeX = np.size(self.__field,0)
         self.fieldSizeY  = np.size(self.__field,1)
-        self.__bombLocationList = [] # define return of placeBombs (tuple list)
+        self.__bombLocationList = []# define return of placeBombs (tuple list)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
+        self.__openedTileCount = 0
         
         self.placeTiles()
         self.placeBombs()
@@ -130,11 +135,16 @@ class Gamefield:
         if isinstance(tile,Bomb) == True:
             print("Bomb")
         elif tile.getisLightUp() == False:
+            #checking and adding
+            self.__openedTileCount += 1
             if tile.getNumber() == 0:
                 tile.changeisLightUp()
                 self.blankOpener(x,y) 
             else: 
                 tile.changeisLightUp()
+
+            if self.__openedTileCount == (self.__fieldSize - self.__bombCount):
+                print("You Win")
                               
     def blankOpener(self,x,y):
         '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
@@ -148,6 +158,7 @@ class Gamefield:
                     pass
 
     def toJSON(self):
+        '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
         gfJson['Gamefield'] = {'fieldSize':self.__fieldSize,
         'fieldSizeX':self.fieldSizeX,
