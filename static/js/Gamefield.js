@@ -1,16 +1,16 @@
-var gamefield = document.getElementById('gamefield');
 //TODO: Add developer faces instead of mines for the bombs
-var gameData;
+var gamefield = document.getElementById('gamefield');
+var gameData; // data from back-end 
 
-// TODO: access on JSON object with fetch
 fetch('/testGame')
     .then(function(response) {
         return response.text() // takes Response text value
     }).then(function (text) {
         //! preprocess JSON 
         gameData= JSON.parse(text);
-        console.log(gameData.Field[0].className)
+        //console.log(gameData.Field[0].className)
     })
+
 
 
 /**
