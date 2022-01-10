@@ -149,9 +149,11 @@ class Gamefield:
 
     def toJSON(self):
         gfJson = dict()
-        gfJson['Gamefield'] = {'fieldSize':self.__fieldSize,
-        'fieldSizeX':self.fieldSizeX,
-        'fieldSizeY':self.fieldSizeY}
+        gfJson['Gamefield'] = {
+            'fieldSize':self.__fieldSize,
+            'fieldSizeX':self.fieldSizeX,
+            'fieldSizeY':self.fieldSizeY
+            }
 
         fieldList = list()
         for row in self.__field:

@@ -2,27 +2,25 @@
 var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
 
-fetch('/startGame')
-    .then(function(response) {
-        return response.text() // takes Response text value
-    })
-    .then(function(text) {
-        //! preprocess JSON 
-        gameData = JSON.parse(text);
-    })
-    .then(function(prom) {
-        console.log(gameData);
-    })
-
-
-
 
 /**
  * Preprocessing the JSON gameobject to get all values to work with
  * 
  * @param {JSON} backEndJSON - Back-End JOSN object 
  */
-function preProcessingGameobject(backEndJSON) {
+function preProcessingGame() {
+    // get game object from backend
+    fetch('/startGame')
+        .then(function(response) {
+            return response.text() // takes Response text value
+        })
+        .then(function(text) {
+            gameData = JSON.parse(text);
+            console.log(gameData);
+        })
+        .then(function() {
+            buildGamefield(gameData);
+        })
 
 }
 
@@ -37,10 +35,18 @@ function buildGamefield(gameObject) {
     // create divs which represets Tiles
     var tileList = [];
 
-    for (let i = 0; i < 256 ; i++) { //* gameObject.__fieldSize = 256
+    for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) { //* gameObject.__fieldSize = 256
+        // create the element
         let newTile = document.createElement('div');
+
         // define div classname as tile
         newTile.className = 'tile';
+        // define div attributes 
+        //newTile.createAttribute("className");
+        //newTile.createAttribute("valueX");
+        //newTile.createAttribute("valueY");
+
+        newTile.setAttribute('className', gameObject.)
 
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
@@ -61,6 +67,8 @@ function buildGamefield(gameObject) {
     tiles.forEach((tile) => {
         tile.addEventListener("click", clickedTileCoordinates);
     });
+
+    console.log(tileList);
 }
 
-buildGamefield(null);
+preProcessingGame();
