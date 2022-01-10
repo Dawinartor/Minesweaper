@@ -3,8 +3,11 @@
     <head>
         <title>Minesweeper</title>                 <!-- endpoint or folder , file -->
         <script type="text/javascript" src="{{ url_for('static', filename='js/Gamefield.js') }}" defer></script>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/Gamefield.css') }}">
+        <!-- using JSON object from Flask -->
+        <input type='hidden' id='game' data-thetargets='{{ targets|tojson }}' />
+        <!-- visual components -->
         <meta name="viewport" content= "width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/Gamefield.css') }}">
     </head>
 
     <body>
