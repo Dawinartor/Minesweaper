@@ -1,21 +1,23 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, jsonify
 from Minesweeper import Gamefield
+#! don't create game with starting the server
 
-# create Gamefield object
-newGame = Gamefield()
 
 app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():                                # define data to give from back-end to front-end
+        # create Gamefield object
     return render_template('Gamefield.html')
 
 
 # test Flask JSON object using in external JS file
-@app.route("/newGame", methods=['GET', 'POST'])
-def testGame():
-    data = newGame.toJSON()
-    return render_template('Gamefield.html', gameData = data)
+@app.route("/testGame", methods=['GET', 'POST']) # access this with fetch api in js
+def testGame(): 
+    # GET request is default request method
+    newGame = Gamefield()
+    message = newGame.toJSON() # return is string
+    return message
         
 
 
