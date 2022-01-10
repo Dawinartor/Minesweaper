@@ -47,7 +47,10 @@ function buildGamefield(gameObject) {
         //newTile.createAttribute("valueY");
 
         // define all needed tile values in each tile
-        newTile.setAttribute('className', 'Bomb');
+        //newTile.setAttribute('tileNumber', String(gameObject.Gamefield.field[i]));
+        newTile.setAttribute('className', String(gameObject.Gamefield.field[i].className));
+        newTile.setAttribute('coordinateX', String(gameObject.Gamefield.field[i].x));
+        newTile.setAttribute('coordinateY', String(gameObject.Gamefield.field[i].y));
 
 
         // append it in HTML for game visualization
