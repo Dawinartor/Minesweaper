@@ -2,14 +2,18 @@
 var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
 
-fetch('/testGame')
+fetch('/startGame')
     .then(function(response) {
         return response.text() // takes Response text value
-    }).then(function (text) {
-        //! preprocess JSON 
-        gameData= JSON.parse(text);
-        //console.log(gameData.Field[0].className)
     })
+    .then(function(text) {
+        //! preprocess JSON 
+        gameData = JSON.parse(text);
+    })
+    .then(function(prom) {
+        console.log(gameData);
+    })
+
 
 
 

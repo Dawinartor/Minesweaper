@@ -12,9 +12,9 @@ def index():                                # define data to give from back-end 
 
 
 # test Flask JSON object using in external JS file
-@app.route("/testGame", methods=['GET', 'POST']) # access this with fetch api in js
+@app.route("/startGame", methods=['GET', 'POST']) # access this with fetch api in js
 def testGame(): 
-    # GET request is default request method
+    # GET request is default method
     newGame = Gamefield()
     message = newGame.toJSON() # return is string
     return message
