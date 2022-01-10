@@ -1,3 +1,4 @@
+from random import randint
 from flask import Flask, render_template, redirect, request, jsonify
 from Minesweeper import Gamefield
 #! don't create game with starting the server
@@ -18,10 +19,7 @@ def testGame():
     newGame = Gamefield()
     message = newGame.toJSON() # return is string
     return message
-        
-@app.route('/game',methods=['GET', 'POST'])
-def gameLoop():
-    pass
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
