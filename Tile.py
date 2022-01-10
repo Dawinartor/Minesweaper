@@ -41,6 +41,7 @@ class Tile:
         self.width = 16
         self.height = 16
         self.__surroundList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
+        self.__tileIndex = 0
 
     def getLocation(self):
         '''returns __x and __y'''
