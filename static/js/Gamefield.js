@@ -1,7 +1,21 @@
-var gamefield = document.getElementById('gamefield');
-//TODO: Add test backEndJSON
-
 //TODO: Add developer faces instead of mines for the bombs
+var gamefield = document.getElementById('gamefield');
+var gameData; // data from back-end 
+
+fetch('/startGame')
+    .then(function(response) {
+        return response.text() // takes Response text value
+    })
+    .then(function(text) {
+        //! preprocess JSON 
+        gameData = JSON.parse(text);
+    })
+    .then(function(prom) {
+        console.log(gameData);
+    })
+
+
+
 
 /**
  * Preprocessing the JSON gameobject to get all values to work with

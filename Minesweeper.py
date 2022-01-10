@@ -174,7 +174,7 @@ class Gamefield:
                 tempDict['className'] = className
                 fieldList.append(tempDict)
 
-        gfJson['Field'] = fieldList
+        gfJson['field'] = fieldList
         return json.dumps(gfJson)
 
     def getFieldSize(self):
