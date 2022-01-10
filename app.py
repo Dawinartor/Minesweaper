@@ -11,24 +11,11 @@ def index():                                # define data to give from back-end 
     return render_template('Gamefield.html')
 
 
-# test Flask requesting data
-
-@app.route('/query-example')
-def query_example():
-    user = {'firstname': "Mr.", 'lastname': "My Father's Son"}
-    return render_template('Gamefield.html', data = user)
-
-@app.route('/form-example')
-def form_example():
-    return 'Form Data Example'
-
-@app.route('/json-example', methods=['GET'])
-def json_example():
-    request.json = request.get_json()
-    testJsonObject = newGame.toJSON()
-    language = request.args.get('language')
-    return '''<h1>The language value is: {}</h1>'''.format(testJsonObject)
-
+# test Flask JSON object using in external JS file
+@app.route("/newGame", methods=['GET', 'POST'])
+def testGame():
+    data = newGame.toJSON()
+    return render_template('Gamefield.html',data=data)
         
 
 
