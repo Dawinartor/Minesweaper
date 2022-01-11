@@ -1,14 +1,26 @@
-var gamefield = document.getElementById('gamefield');
-//TODO: Add test backEndJSON
-
 //TODO: Add developer faces instead of mines for the bombs
+var gamefield = document.getElementById('gamefield');
+var gameData; // data from back-end 
+
 
 /**
  * Preprocessing the JSON gameobject to get all values to work with
  * 
  * @param {JSON} backEndJSON - Back-End JOSN object 
  */
-function preProcessingGameobject(backEndJSON) {
+function preProcessingGame() {
+    // get game object from backend
+    fetch('/startGame')
+        .then(function(response) {
+            return response.text() // takes Response text value
+        })
+        .then(function(text) {
+            gameData = JSON.parse(text);
+            console.log(gameData);
+        })
+        .then(function() {
+            buildGamefield(gameData);
+        })
 
 }
 
@@ -23,30 +35,41 @@ function buildGamefield(gameObject) {
     // create divs which represets Tiles
     var tileList = [];
 
-    for (let i = 0; i < 256 ; i++) { //* gameObject.__fieldSize = 256
+    for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) {
+
+        // create the element
         let newTile = document.createElement('div');
+
         // define div classname as tile
         newTile.className = 'tile';
 
+        // define all needed tile values in each tile
+        //newTile.setAttribute('tileNumber', String(gameObject.Gamefield.field[i]));
+        newTile.setAttribute('className', String(gameObject.Gamefield.field[i].className));
+        newTile.setAttribute('coordinateX', String(gameObject.Gamefield.field[i].x));
+        newTile.setAttribute('coordinateY', String(gameObject.Gamefield.field[i].y));
+
+
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
+
         // append to tileList 
         tileList.push(newTile);
     }
 
-    // Get tile elements from DOM
+    // Get tile elements class from DOM
     const tiles = document.querySelectorAll('.tile');
 
     // Function to toggle popup (toggles .active) 
-    const clickedTileCoordinates = () => {
-        console.log( "xyz" );
-        // tiles.classList.toggle("active"); 
+    const showTileCoordinates = (event) => {
+        console.log( event.target );
     };
 
     // Assign event listener with callback to every button:
     tiles.forEach((tile) => {
-        tile.addEventListener("click", clickedTileCoordinates);
+        tile.addEventListener("click", showTileCoordinates);
     });
+
 }
 
-buildGamefield(null);
+preProcessingGame();
