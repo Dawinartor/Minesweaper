@@ -46,9 +46,8 @@ function buildGamefield(gameObject) {
         // define all needed tile values in each tile
         newTile.setAttribute('tileIndex', String(gameObject.Gamefield.field[i].index));
         newTile.setAttribute('className', String(gameObject.Gamefield.field[i].className));
-        newTile.setAttribute('coordinateX', String(gameObject.Gamefield.field[i].x));
-        newTile.setAttribute('coordinateY', String(gameObject.Gamefield.field[i].y));
-
+        newTile.setAttribute('coordinate-x', String(gameObject.Gamefield.field[i].x)); // is row
+        newTile.setAttribute('coordinate-y', String(gameObject.Gamefield.field[i].y)); // is column
 
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
