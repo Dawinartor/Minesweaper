@@ -20,7 +20,7 @@ class Tile:
         returns __x and __y
 
     '''
-    def __init__(self,x,y):
+    def __init__(self,x,y,index):
         '''"""
         Constructs all the necessary attributes for the tile object.
 
@@ -41,6 +41,11 @@ class Tile:
         self.width = 16
         self.height = 16
         self.__surroundList = [(x+1,y),(x+1,y+1),(x,y+1),(x-1,y),(x-1,y-1),(x,y-1),(x+1,y-1),(x-1,y+1)]
+        self.__tileIndex = index
+
+    def getIndex(self):
+        '''returns __tileIndex'''
+        return self.__tileIndex
 
     def getLocation(self):
         '''returns __x and __y'''

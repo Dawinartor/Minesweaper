@@ -25,6 +25,8 @@ class Gamefield:
         contains locations of genereted bombs
     __bombCount: int
         amount of bomb in the field
+    __openedTileCount: int
+        amount of opened tiles
 
     Methods
     -------
@@ -38,6 +40,8 @@ class Gamefield:
         Checks and changes isLightup of a given tile
     blankOpener(x,y):
         Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()
+    toJSON():
+        Gets data from GameField and GameFiled.field and returns as a JSON formatted string
     getFieldSize():
         returns __fieldSize
     getBombLocationList():
@@ -48,22 +52,24 @@ class Gamefield:
     def __init__(self):
         self.__field = np.empty((16,16),dtype=object)
         self.__fieldSize = self.__field.size
-        self.fieldSizeX = np.size(self.__field,0)
+        self.fieldSizeX = np.size(self.__field,0)#starts from 0
         self.fieldSizeY  = np.size(self.__field,1)
-        self.__bombLocationList = [] # define return of placeBombs (tuple list)
+        self.__bombLocationList = []# define return of placeBombs (tuple list)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
+        self.__openedTileCount = 0
         
         self.placeTiles()
         self.placeBombs()
         self.addValue()
 
         #self.isLightUpChanger(0,0)
+        
 
         self.test = np.zeros((16,16))
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
                 self.test[x][y] = self.__field[x][y].getNumber()
-        
+                
         self.test2 = np.zeros((16,16))
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
@@ -86,8 +92,12 @@ class Gamefield:
                 #* define x & y coordinates
                 x = mockupBomb[0]
                 y = mockupBomb[1]
-          
-                self.__field[x][y] = Bomb(x, y) 
+
+                #colum+((row-1)*columSize)
+                #5col 1row 15
+                #colum+(row*columsize)
+                index = y+((x)* self.fieldSizeY)
+                self.__field[x][y] = Bomb(x, y,index) 
         
         #~ use main created methods
         createBombLocationList()
@@ -101,8 +111,8 @@ class Gamefield:
 
                 if isinstance(self.__field[x][y],Bomb) == True:
                     continue
-
-                self.__field[x][y] = Number(x,y)
+                index = y+((x)* self.fieldSizeY)
+                self.__field[x][y] = Number(x,y,index)
 
     def addValue(self):
         '''Manipulates number objects around bombs.
@@ -130,11 +140,16 @@ class Gamefield:
         if isinstance(tile,Bomb) == True:
             print("Bomb")
         elif tile.getisLightUp() == False:
+            #checking and adding
+            self.__openedTileCount += 1
             if tile.getNumber() == 0:
                 tile.changeisLightUp()
                 self.blankOpener(x,y) 
             else: 
                 tile.changeisLightUp()
+
+            if self.__openedTileCount == (self.__fieldSize - self.__bombCount):
+                print("You Win")
                               
     def blankOpener(self,x,y):
         '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
@@ -148,6 +163,7 @@ class Gamefield:
                     pass
 
     def toJSON(self):
+        '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
 
         fieldList = list()
@@ -157,8 +173,12 @@ class Gamefield:
                 x,y = value.getLocation()
                 className = type(value).__name__
                 tempDict["x"],tempDict['y'] = x,y
+                tempDict['index'] = value.getIndex()
                 tempDict['className'] = className
+                if className == 'Number':
+                    tempDict['number'] = value.getNumber()
                 fieldList.append(tempDict)
+
 
         gfJson['Gamefield'] = {
             'fieldSize':self.__fieldSize,
@@ -186,11 +206,9 @@ class Gamefield:
         return self.__field
     
 
-game = Gamefield()
-
-
-f, ax = plt.subplots(1,2)
-ax[1].imshow(game.test) #first image
-ax[0].imshow(game.test2) #second image
-plt.show()
+#game = Gamefield()
+# f, ax = plt.subplots(1,2)
+# ax[1].imshow(game.test) #first image
+# ax[0].imshow(game.test2) #second image
+# plt.show()
 

@@ -16,11 +16,11 @@ class Number(Tile):
         defines if tile is showing
     
     '''
-    def __init__(self, x, y,number = 0):
+    def __init__(self, x, y,index,number = 0):
         self.__number = number
         self.__isLightUp = False
         
-        super().__init__(x, y)
+        super().__init__(x, y,index)
 
     def getNumber(self):
         '''returns __number'''
