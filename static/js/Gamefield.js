@@ -35,16 +35,13 @@ function buildGamefield(gameObject) {
     // create divs which represets Tiles
     var tileList = [];
 
-    for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) { //* gameObject.__fieldSize = 256
+    for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) {
+
         // create the element
         let newTile = document.createElement('div');
 
         // define div classname as tile
         newTile.className = 'tile';
-        // define div attributes 
-        //newTile.createAttribute("className");
-        //newTile.createAttribute("valueX");
-        //newTile.createAttribute("valueY");
 
         // define all needed tile values in each tile
         //newTile.setAttribute('tileNumber', String(gameObject.Gamefield.field[i]));
@@ -55,25 +52,24 @@ function buildGamefield(gameObject) {
 
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
+
         // append to tileList 
         tileList.push(newTile);
     }
 
-    // Get tile elements from DOM
+    // Get tile elements class from DOM
     const tiles = document.querySelectorAll('.tile');
 
     // Function to toggle popup (toggles .active) 
-    const clickedTileCoordinates = () => {
-        console.log( tileList );
-        // tiles.classList.toggle("active"); 
+    const showTileCoordinates = (event) => {
+        console.log( event.target );
     };
 
     // Assign event listener with callback to every button:
     tiles.forEach((tile) => {
-        tile.addEventListener("click", clickedTileCoordinates);
+        tile.addEventListener("click", showTileCoordinates);
     });
 
-    console.log(tileList);
 }
 
 preProcessingGame();
