@@ -165,9 +165,6 @@ class Gamefield:
     def toJSON(self):
         '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
-        gfJson['Gamefield'] = {'fieldSize':self.__fieldSize,
-        'fieldSizeX':self.fieldSizeX,
-        'fieldSizeY':self.fieldSizeY}
 
         fieldList = list()
         for row in self.__field:
@@ -182,8 +179,14 @@ class Gamefield:
                     tempDict['number'] = value.getNumber()
                 fieldList.append(tempDict)
 
-        gfJson['Gamefield']['field'] = fieldList
 
+        gfJson['Gamefield'] = {
+            'fieldSize':self.__fieldSize,
+            'fieldSizeX':self.fieldSizeX,
+            'fieldSizeY':self.fieldSizeY,
+            'field': fieldList
+            }
+        
         return json.dumps(gfJson)
 
     def getFieldSize(self):
