@@ -203,7 +203,7 @@ class Gamefield:
         return self.__field
     
 
-game = Gamefield()
+#game = Gamefield()
 # f, ax = plt.subplots(1,2)
 # ax[1].imshow(game.test) #first image
 # ax[0].imshow(game.test2) #second image
