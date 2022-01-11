@@ -63,7 +63,6 @@ class Gamefield:
         self.addValue()
 
         #self.isLightUpChanger(0,0)
-        print(self.toJSON())
         
 
         self.test = np.zeros((16,16))
