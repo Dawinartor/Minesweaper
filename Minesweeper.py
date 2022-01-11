@@ -172,7 +172,7 @@ class Gamefield:
                 tempDict = {}
                 x,y = value.getLocation()
                 className = type(value).__name__
-                tempDict["x"],tempDict['y'] = x,y
+                tempDict["x"], tempDict['y'] = x,y
                 tempDict['index'] = value.getIndex()
                 tempDict['className'] = className
                 if className == 'Number':
