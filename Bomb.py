@@ -8,8 +8,8 @@ class Bomb(Tile):
     -------
     Tile class
     '''
-    def __init__(self, x, y):
-        super().__init__(x, y)
+    def __init__(self, x, y,index):
+        super().__init__(x, y,index)
         
     # this is for testing purpose
     def getNumber(self):
