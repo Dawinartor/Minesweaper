@@ -32,8 +32,7 @@ function preProcessingGame() {
  * @param {JSON} gameObject - Back-End JOSN object of the created game
  */
 function buildGamefield(gameObject) {
-    // create divs which represets Tiles
-    var tileList = [];
+    // create divs which represets each Tile
 
     for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) {
 
@@ -51,22 +50,73 @@ function buildGamefield(gameObject) {
 
         // append it in HTML for game visualization
         gamefield.appendChild(newTile);
+    }
 
-        // append to tileList 
-        tileList.push(newTile);
+
+    // Function to log each click in console
+    const logClickedTile = (event) => {
+        // takes clicked tile in variable
+        let clickedTile = event.target;
+        
+        //~ for debugging
+        console.log( 
+            clickedTile.getAttribute('tileIndex') + " /",
+            clickedTile.getAttribute('className') + " /",
+            clickedTile.getAttribute('coordinate-x') + " /",
+            clickedTile.getAttribute('coordinate-y') 
+        );
+    };
+
+    // Generates JSON from data
+    const createJSON = (valueX, valueY) => {
+        let returnJSON = {"tile": {
+            "x": valueX,
+            "y": valueY
+        }};
+        return returnJSON;
+    }
+
+    // collects information of clicked tile 
+    const getTileInformations = (event) => {
+        // takes clicked tile in variable
+        let clickedTile = event.target;
+        
+        let tileIndex = clickedTile.getAttribute('tileIndex');
+        let className = clickedTile.getAttribute('className');
+        let valueX = clickedTile.getAttribute('coordinate-x');
+        let valueY = clickedTile.getAttribute('coordinate-y');
+
+        // generates JSON with needed information
+        return createJSON(valueX, valueY);
+    }
+
+    const sendClickedTile = (tileJSON) => {
+        // TODO: Trough fetch() send to back-end
+        console.log(tileJSON.tile.x)
+    }
+
+    /**
+     * 
+     * @param {*} clickedTile 
+     */
+    const onClickTile = (clickedTile) => {
+
+        // log in system (console.log) each time which was clicked
+        logClickedTile(clickedTile);
+        // collect clicked tile information & generate JSON
+        let clickedTileJSON = getTileInformations(clickedTile);
+        console.log(clickedTileJSON);
+        // send collected json
+        sendClickedTile(clickedTileJSON);
+
     }
 
     // Get tile elements class from DOM
     const tiles = document.querySelectorAll('.tile');
 
-    // Function to toggle popup (toggles .active) 
-    const showTileCoordinates = (event) => {
-        console.log( event.target );
-    };
-
     // Assign event listener with callback to every button:
     tiles.forEach((tile) => {
-        tile.addEventListener("click", showTileCoordinates);
+        tile.addEventListener("click", onClickTile);
     });
 
 }
