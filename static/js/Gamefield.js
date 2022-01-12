@@ -59,12 +59,14 @@ function buildGamefield(gameObject) {
         let clickedTile = event.target;
         
         //~ for debugging
+    /*
         console.log( 
             clickedTile.getAttribute('tileIndex') + " /",
             clickedTile.getAttribute('className') + " /",
             clickedTile.getAttribute('coordinate-x') + " /",
             clickedTile.getAttribute('coordinate-y') 
         );
+    */
     };
 
     // Generates JSON from data
@@ -92,7 +94,7 @@ function buildGamefield(gameObject) {
 
     const sendClickedTile = (tileJSON) => {
         // TODO: Trough fetch() send to back-end
-        console.log(tileJSON.tile.x)
+        //console.log(tileJSON.tile.x)
     }
 
     /**
