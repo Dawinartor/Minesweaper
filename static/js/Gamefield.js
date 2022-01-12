@@ -94,6 +94,9 @@ function buildGamefield(gameObject) {
 
     const sendClickedTile = (tileJSON) => {
         // TODO: Trough fetch() send to back-end
+        jQuery.post("/continousConnection", {
+            tileJSON: data
+        });
         //console.log(tileJSON.tile.x)
     }
 
