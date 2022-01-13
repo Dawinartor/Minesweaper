@@ -1,5 +1,4 @@
 import numpy as np
-from matplotlib import pyplot as plt
 from itertools import product
 from random import sample
 from Number import Number
@@ -61,23 +60,7 @@ class Gamefield:
         self.placeTiles()
         self.placeBombs()
         self.addValue()
-
-        #self.isLightUpChanger(0,0)
-        
-
-        self.test = np.zeros((16,16))
-        for x in range(0,self.fieldSizeX):
-            for y in range(0,self.fieldSizeY):
-                self.test[x][y] = self.__field[x][y].getNumber()
-                
-        self.test2 = np.zeros((16,16))
-        for x in range(0,self.fieldSizeX):
-            for y in range(0,self.fieldSizeY):
-                try:
-                    self.test2[x][y] = self.__field[x][y].getisLightUp()
-                except:
-                    pass
-
+    
     def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
         
@@ -93,9 +76,6 @@ class Gamefield:
                 x = mockupBomb[0]
                 y = mockupBomb[1]
 
-                #colum+((row-1)*columSize)
-                #5col 1row 15
-                #colum+(row*columsize)
                 index = y+((x)* self.fieldSizeY)
                 self.__field[x][y] = Bomb(x, y,index) 
         
@@ -135,10 +115,11 @@ class Gamefield:
         '''Checks and changes isLightup of a given tile.
 
         If the tile is not bomb it changes isLightUp and also If the tile is "blank" it calls blankOpener()'''
+        x,y = int(x),int(y)
         tile = self.__field[x][y]
         
         if isinstance(tile,Bomb) == True:
-            print("Bomb")
+            return "Bomb"
         elif tile.getisLightUp() == False:
             #checking and adding
             self.__openedTileCount += 1
@@ -149,7 +130,7 @@ class Gamefield:
                 tile.changeisLightUp()
 
             if self.__openedTileCount == (self.__fieldSize - self.__bombCount):
-                print("You Win")
+                return "You Win"
                               
     def blankOpener(self,x,y):
         '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
@@ -165,7 +146,7 @@ class Gamefield:
     def toJSON(self):
         '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
-
+        # send islightup value
         fieldList = list()
         for row in self.__field:
             for value in row:
@@ -177,6 +158,7 @@ class Gamefield:
                 tempDict['className'] = className
                 if className == 'Number':
                     tempDict['number'] = value.getNumber()
+                    tempDict['isLightUp'] = value.getisLightUp()
                 fieldList.append(tempDict)
 
 
@@ -205,11 +187,3 @@ class Gamefield:
         '''returns __field'''
         return self.__field
     
-
-game = Gamefield()
-game.toJSON()
-# f, ax = plt.subplots(1,2)
-# ax[1].imshow(game.test) #first image
-# ax[0].imshow(game.test2) #second image
-# plt.show()
-
