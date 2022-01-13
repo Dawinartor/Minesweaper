@@ -4,6 +4,7 @@ var gameData; // data from back-end
 const socket = io();
 
 
+
 /**
  * Preprocessing the JSON gameobject to get all values to work with
  * 
@@ -95,10 +96,8 @@ function buildGamefield(gameObject) {
 
     const sendClickedTile = (tileJSON) => {
 
-        // TODO: Trough fetch() send to back-end
-        socket.on('connect', function() {
-            socket.emit('json', tileJSON);
-        })
+        socket.emit('json', tileJSON);
+    
     }
 
     /**
