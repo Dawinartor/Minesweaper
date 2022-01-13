@@ -13,7 +13,8 @@ socketio = SocketIO(app) # replaces the app.run() command
 
 @socketio.on('json')
 def handle_message(data):
-    print( 'recieved message: ' +  str(data) )
+    tile = data['tile']
+    print( 'recieved message: ' +  str(tile['x']) + ' | ' + str(tile['y']) )
 
 @app.route("/", methods=['GET', 'POST'])
 def index():                                # define data to give from back-end to front-end
