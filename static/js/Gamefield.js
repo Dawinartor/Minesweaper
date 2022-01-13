@@ -3,11 +3,10 @@ var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
 const socket = io();
 
-
-var socket = io();
-    socket.on('connect', function() {
-        socket.emit('message', {data: 'Im connected!'});
-    });
+// this part recieves the modified json
+socket.on("json", (arg) => {
+    console.log(arg); 
+  });
 
 /**
  * Preprocessing the JSON gameobject to get all values to work with
