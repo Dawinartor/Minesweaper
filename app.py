@@ -36,8 +36,9 @@ def getGameActivity():
     
 @socketio.on('json')
 def handle_message(json):
-    locations =  fjson.loads(json)
-    newGame.isLightUpChanger(locations['x'],locations['y'])
+    data =  fjson.loads(json)
+    tile = data['tile']
+    newGame.isLightUpChanger(tile['x'],tile['y'])
     message = newGame.toJSON()
     print(message)
 
