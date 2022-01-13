@@ -55,6 +55,7 @@ function buildGamefield(gameObject) {
     }
 
 
+    //TODO: create internal log system for debuging purposes
     // Function to log each click in console
     const logClickedTile = (event) => {
         // takes clicked tile in variable
