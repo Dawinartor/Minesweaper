@@ -2,6 +2,10 @@
 var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
 
+var socket = io();
+    socket.on('connect', function() {
+        socket.emit('message', {data: 'Im connected!'});
+    });
 
 /**
  * Preprocessing the JSON gameobject to get all values to work with

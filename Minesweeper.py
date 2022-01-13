@@ -165,7 +165,7 @@ class Gamefield:
     def toJSON(self):
         '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
-
+        # send islightup value
         fieldList = list()
         for row in self.__field:
             for value in row:
@@ -175,6 +175,7 @@ class Gamefield:
                 tempDict["x"], tempDict['y'] = x,y
                 tempDict['index'] = value.getIndex()
                 tempDict['className'] = className
+                
                 if className == 'Number':
                     tempDict['number'] = value.getNumber()
                 fieldList.append(tempDict)
