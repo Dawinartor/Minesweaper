@@ -7,3 +7,7 @@
 
 ## delete current branch from local
 - git branch -d <branch>
+  
+# Secret key generation
+##os.urandom() method is used to generate a string of size random bytes.
+-os.urandom(12)
