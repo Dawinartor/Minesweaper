@@ -38,6 +38,8 @@ def getGameActivity():
 def handle_message(json):
     locations =  fjson.loads(json)
     newGame.isLightUpChanger(locations['x'],locations['y'])
+    message = newGame.toJSON()
+    print(message)
 
 
 

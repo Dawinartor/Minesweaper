@@ -175,9 +175,9 @@ class Gamefield:
                 tempDict["x"], tempDict['y'] = x,y
                 tempDict['index'] = value.getIndex()
                 tempDict['className'] = className
-                
                 if className == 'Number':
                     tempDict['number'] = value.getNumber()
+                    tempDict['isLightUp'] = value.getisLightUp()
                 fieldList.append(tempDict)
 
 
