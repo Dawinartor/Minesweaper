@@ -10,4 +10,4 @@
   
 # Secret key generation
 ##os.urandom() method is used to generate a string of size random bytes.
--os.urandom(12)
+- os.urandom(12)
