@@ -1,6 +1,8 @@
 //TODO: Add developer faces instead of mines for the bombs
 var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
+const socket = io();
+
 
 var socket = io();
     socket.on('connect', function() {
@@ -97,11 +99,9 @@ function buildGamefield(gameObject) {
     }
 
     const sendClickedTile = (tileJSON) => {
-        // TODO: Trough fetch() send to back-end
-        jQuery.post("/continousConnection", {
-            tileJSON: data
-        });
-        //console.log(tileJSON.tile.x)
+
+        socket.emit('json', tileJSON);
+    
     }
 
     /**
@@ -117,7 +117,6 @@ function buildGamefield(gameObject) {
         console.log(clickedTileJSON);
         // send collected json
         sendClickedTile(clickedTileJSON);
-
     }
 
     // Get tile elements class from DOM
@@ -129,5 +128,7 @@ function buildGamefield(gameObject) {
     });
 
 }
+
+//~ Communication between front-end & back-end
 
 preProcessingGame();

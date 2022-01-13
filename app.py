@@ -1,3 +1,4 @@
+import json
 from logging import debug
 from flask import Flask, render_template, redirect, request
 from flask import json as fjson
@@ -9,7 +10,11 @@ from flask_socketio import SocketIO
 app = Flask(__name__)
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = b'\x0f\xf6j\x07E\xb9an\x9d4\x19\xa0'
-socketio = SocketIO(app)
+socketio = SocketIO(app) # replaces the app.run() command
+
+@socketio.on('json')
+def handle_message(data):
+    print( 'recieved message: ' +  str(data) )
 
 newGame = Gamefield()
 
@@ -46,4 +51,4 @@ def handle_message(json):
 
 if __name__ == '__main__':
     socketio.run(app)
-    #app.run(debug=True)
+
