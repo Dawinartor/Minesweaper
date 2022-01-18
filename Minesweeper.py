@@ -52,16 +52,16 @@ class Gamefield:
         Checks and changes isLightup of a given tile
     blankOpener(x,y): 
         Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()
-    toJSON(): 
+    toJSON(): str
         Gets data from GameField and GameFiled.field and returns as a JSON formatted string
-    getFieldSize():
+    getFieldSize(): int
         Returns size of field
-    getBombLocationList():
+    getBombLocationList(): list
         Returns list with bombs inside
-    getBombCount():
+    getBombCount(): int
         Returns total amount of bombs inside field
-    getField():
-        returns __field
+    getField(): numPy.array
+        Returns the field
     """
     def __init__(self):
         self.__field = np.empty((16,16), dtype=object)
@@ -76,7 +76,7 @@ class Gamefield:
         self.placeBombs()
         self.addValue()
     
-    def placeBombs(self): #X
+    def placeBombs(self):
         '''Create random generated list of tuples and place out of them Bombs in filed'''
         
         def createBombLocationList(): #TODO: Explain what happens here
@@ -103,7 +103,7 @@ class Gamefield:
         createBombLocationList()
         placeBombs()
 
-    def placeTiles(self): #X
+    def placeTiles(self):
         '''Fills field array with number objects
         '''
         for x in range(0,self.fieldSizeX):
@@ -114,7 +114,7 @@ class Gamefield:
                 index = y+((x)* self.fieldSizeY)
                 self.__field[x][y] = Number(x,y,index)
 
-    def addValue(self): #X
+    def addValue(self):
         '''Manipulates number objects around bombs.
 
         Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects'''
@@ -131,7 +131,7 @@ class Gamefield:
                     except:
                         continue
 
-    def isLightUpChanger(self,x,y): #X
+    def isLightUpChanger(self,x,y):
         '''Checks and changes isLightup of a given tile.
 
         If the tile is not bomb it changes isLightUp and also If the tile is "blank" it calls blankOpener()'''
@@ -152,7 +152,7 @@ class Gamefield:
             if self.__openedTileCount == (self.__fieldSize - self.__bombCount):
                 return "You Win"
                               
-    def blankOpener(self,x,y): #X
+    def blankOpener(self,x,y):
         '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
         surroundList = self.__field[x][y].getsurroundList()
         for value in surroundList:
@@ -163,7 +163,7 @@ class Gamefield:
                 except:
                     pass
 
-    def toJSON(self): #X
+    def toJSON(self):
         '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
         # send islightup value
