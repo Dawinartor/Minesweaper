@@ -1,13 +1,44 @@
+"""Minesweeper server-side game
+
+This script allows the user to deploy a minesweeper game that is working
+as a serverside application on the maschien.
+
+Dieses script erlaubt es ein Minesweeper spiel als serverseitiges Programm zu starten.
+
+Um diese Bibliothek verwenden zu können müssen folgende Bibliotheken 
+installiert sein:
+
+    * numpy
+    * json
+    * itertools
+    * random
+    
+Wird diese Bibliothek importiert stehen folgende Funktionen zur verwendung
+bereit:
+
+    * placeBombs
+
+
+This file can also be imported as a module and contains the following
+functions:
+
+    * get_spreadsheet_cols - returns the column headers of the file
+    * main - the main function of the script
+"""
+
+# required packages to use this package
 import numpy as np
+import json
 from itertools import product
 from random import sample
+# self developed classes
 from Number import Number
 from Bomb import Bomb
-import json
+
 
 class Gamefield:
     """
-    A class to represent a person.
+    A class to represent the main Gamefield.
     ...
 
     Attributes
@@ -65,8 +96,10 @@ class Gamefield:
         '''Create random generated list of tuples and place out of them Bombs in filed'''
         
         def createBombLocationList():
-            #TODO: descripe one line code
-            self.__bombLocationList = sample(list(product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)), k=self.__bombCount)
+            GamefieldTotalSize = product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)
+            gamefieldList = list(GamefieldTotalSize)
+            self.__bombLocationList = sample(gamefieldList, k=self.__bombCount)
+            
                 
         def placeBombs():
             '''Iterates through __bombLocationList and creates bomb objects at that coordinate
@@ -186,4 +219,3 @@ class Gamefield:
     def getField(self):
         '''returns __field'''
         return self.__field
-    
