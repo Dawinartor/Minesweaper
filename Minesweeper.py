@@ -20,13 +20,13 @@ from Bomb import Bomb
 
 class Gamefield:
     """
-    A class to represent the Gamefield that has a initinal size of 16x16 with a bomb count of 40.
+    The main class that represent the Gamefield
     ...
 
     Attributes
     ----------
-    __field : ndarray
-        empty numpy array that represents game field
+    __field : numpy.ndarray
+        empty numpy array with objects that represents field
     __fieldSize : int
         size of the field
     fieldSizeX : int
@@ -62,11 +62,11 @@ class Gamefield:
         returns __field
     """
     def __init__(self):
-        self.__field = np.empty((16,16),dtype=object)
+        self.__field = np.empty((16,16), dtype=object)
         self.__fieldSize = self.__field.size
-        self.fieldSizeX = np.size(self.__field,0)#starts from 0
-        self.fieldSizeY  = np.size(self.__field,1)
-        self.__bombLocationList = []# define return of placeBombs (tuple list)
+        self.fieldSizeX = np.size(self.__field, 0) # starts from 0
+        self.fieldSizeY  = np.size(self.__field, 1)
+        self.__bombLocationList = [] # define return of placeBombs (tuple list)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
         self.__openedTileCount = 0
         
