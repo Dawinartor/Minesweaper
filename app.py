@@ -20,6 +20,7 @@ def index():                                # define data to give from back-end 
     return render_template('Gamefield.html')
 
 
+#TODO: 
 # Deploy JSON object in Flask for external uses in JS file
 @app.route("/startGame", methods=['GET', 'POST']) # access this with fetch api in js
 def testGame(): 
