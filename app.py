@@ -1,7 +1,4 @@
-from logging import debug
-from tkinter import N
 from flask import Flask, render_template, redirect, request
-from flask import json as fjson
 from Minesweeper import Gamefield
 from flask_socketio import SocketIO,emit
 #! don't create game with starting the server
