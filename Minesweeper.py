@@ -42,22 +42,24 @@ class Gamefield:
 
     Methods
     -------
-    placeBombs():
+    placeBombs(): 
         Places bomb objects into the field.
-    placeZeros():
+    placeTiles(): 
         Fills field array with number objects.
-    addValue():
+    addValue(): 
         Manipulates number objects around bombs.
-    isLightUpChanger(x,y):
+    isLightUpChanger(x,y): 
         Checks and changes isLightup of a given tile
-    blankOpener(x,y):
+    blankOpener(x,y): 
         Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()
-    toJSON():
+    toJSON(): 
         Gets data from GameField and GameFiled.field and returns as a JSON formatted string
     getFieldSize():
-        returns __fieldSize
+        Returns size of field
     getBombLocationList():
-        returns __bombLocationList
+        Returns list with bombs inside
+    getBombCount():
+        Returns total amount of bombs inside field
     getField():
         returns __field
     """
@@ -74,11 +76,14 @@ class Gamefield:
         self.placeBombs()
         self.addValue()
     
-    def placeBombs(self):
+    def placeBombs(self): #X
         '''Create random generated list of tuples and place out of them Bombs in filed'''
         
         def createBombLocationList(): #TODO: Explain what happens here
-            GamefieldTotalSize = product(range(self.fieldSizeX), range(self.fieldSizeY), repeat=1)
+            '''Create'''
+            rangeX = range(self.fieldSizeX)
+            rangeY = range(self.fieldSizeY)
+            GamefieldTotalSize = product(rangeX, rangeY, repeat=1)
             gamefieldList = list(GamefieldTotalSize)
             self.__bombLocationList = sample(gamefieldList, k=self.__bombCount)
             
@@ -98,7 +103,7 @@ class Gamefield:
         createBombLocationList()
         placeBombs()
 
-    def placeTiles(self):
+    def placeTiles(self): #X
         '''Fills field array with number objects
         '''
         for x in range(0,self.fieldSizeX):
@@ -109,7 +114,7 @@ class Gamefield:
                 index = y+((x)* self.fieldSizeY)
                 self.__field[x][y] = Number(x,y,index)
 
-    def addValue(self):
+    def addValue(self): #X
         '''Manipulates number objects around bombs.
 
         Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects'''
@@ -126,7 +131,7 @@ class Gamefield:
                     except:
                         continue
 
-    def isLightUpChanger(self,x,y):
+    def isLightUpChanger(self,x,y): #X
         '''Checks and changes isLightup of a given tile.
 
         If the tile is not bomb it changes isLightUp and also If the tile is "blank" it calls blankOpener()'''
@@ -147,7 +152,7 @@ class Gamefield:
             if self.__openedTileCount == (self.__fieldSize - self.__bombCount):
                 return "You Win"
                               
-    def blankOpener(self,x,y):
+    def blankOpener(self,x,y): #X
         '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
         surroundList = self.__field[x][y].getsurroundList()
         for value in surroundList:
@@ -158,7 +163,7 @@ class Gamefield:
                 except:
                     pass
 
-    def toJSON(self):
+    def toJSON(self): #X
         '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
         gfJson = dict()
         # send islightup value
