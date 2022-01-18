@@ -130,7 +130,7 @@ class Gamefield:
                 tile.changeisLightUp()
 
             if self.__openedTileCount == (self.__fieldSize - self.__bombCount):
-                return "You Win"
+                return "YouWin"
                               
     def blankOpener(self,x,y):
         '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''

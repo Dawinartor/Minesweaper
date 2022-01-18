@@ -12,7 +12,6 @@ app.config['SECRET_KEY'] = b'\x0f\xf6j\x07E\xb9an\x9d4\x19\xa0'
 socketio = SocketIO(app) # replaces the app.run() command #use logger=True, engineio_logger=True for debugging
 
 
-
 @socketio.on('connect')
 @app.route("/", methods=['GET', 'POST'])
 def index():# define data to give from back-end to front-end\
@@ -24,24 +23,18 @@ def index():# define data to give from back-end to front-end\
     socketio.emit('initialize',message)
     return render_template('Gamefield.html')
 
-
-#TODO: Send initialized gamefield through via websocket
-# Deploy JSON object in Flask for external uses in JS file
-# @app.route("/startGame", methods=['GET', 'POST']) # access this with fetch api in js
-# def testGame(): 
-#     # GET request is default method 
-#     message = newGame.toJSON() # return is string
-    
-#     #writter(message)
-#     return message
-
     
 @socketio.on('click')
 def handle_message(json):
     tile = json['tile']
-    newGame.isLightUpChanger(tile['x'],tile['y'])
-    message = newGame.toJSON()
-    emit('newjson',message)
+    resualt = newGame.isLightUpChanger(tile['x'],tile['y'])
+    if resualt == "YouWin":
+        emit('final',"YouWin")
+    elif resualt == "Bomb":
+        emit("final","Bomb")
+    else:
+        message = newGame.toJSON()
+        emit('newjson',message)
     
     #writter(message)
 

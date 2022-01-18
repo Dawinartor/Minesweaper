@@ -9,30 +9,24 @@ socket.on("newjson", (data) => {
     blankDelete(gameData)
   });
 
-/**
- * Preprocessing the JSON gameobject to get all values to work with
- * 
- * @param {JSON} backEndJSON - Back-End JOSN object 
- */
-// function preProcessingGame() {
-//     // get game object from backend
-//     fetch('/startGame')
-//         .then(function(response) {
-//             return response.text() // takes Response text value
-//         })
-//         .then(function(text) {
-//             gameData = JSON.parse(text);
-//             console.log(gameData);
-//         })
-//         .then(function() {
-//             buildGamefield(gameData);
-//         })
-// }
 
 socket.on("initialize", (data) => {
     gameData = JSON.parse(data);
     blankDelete(gameData); 
   });
+
+socket.on("final", (data) => {
+    if (data == "Bomb") {
+        location.reload();
+    }
+    if (data == "YouWin") {
+        $('#gamefield').empty();
+        $( "p" ).add( "<span>You Win</span>" ).appendTo('#gamefield');
+    }
+
+  });
+
+
 
 
 //TODO: Add checking if gameobject arrived in correct form. -> Typescript
@@ -145,26 +139,30 @@ function blankDelete(gameObject){
     for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) {
         let newTile = document.createElement('div');
         let tileP = document.createElement('p');
-        newTile.appendChild(tileP)
+        // newTile.appendChild(tileP)
 
         tileP.innerHTML = "0"
+        newTile.innerHTML = "&nbsp&nbsp"
+
         tileP.style.visibility = 'hidden'
+        // newTile.style.visibility = 'hidden'
         
         if (gameObject.Gamefield.field[i].isLightUp == true) {
             newTile.className = 'blank';
             
             if (gameObject.Gamefield.field[i].number > 0 ){
                 tileP.style.visibility = 'visible'
+                newTile.style.visibility = 'visible'
                 tileP.innerHTML = String(gameObject.Gamefield.field[i].number);
+                newTile.innerHTML = String(gameObject.Gamefield.field[i].number);
             }
-        }
-                   
+        }          
         else{
             newTile.className = 'tile';
-            newTile.setAttribute('tileIndex', String(gameObject.Gamefield.field[i].index));
-            newTile.setAttribute('coordinate-x', String(gameObject.Gamefield.field[i].x)); // is row
-            newTile.setAttribute('coordinate-y', String(gameObject.Gamefield.field[i].y)); // is column
         }
+        newTile.setAttribute('tileIndex', String(gameObject.Gamefield.field[i].index));
+        newTile.setAttribute('coordinate-x', String(gameObject.Gamefield.field[i].x)); // is row
+        newTile.setAttribute('coordinate-y', String(gameObject.Gamefield.field[i].y)); // is column
         gamefield.appendChild(newTile);
     }
     // Function to log each click in console
@@ -207,7 +205,6 @@ function blankDelete(gameObject){
     }
 
     const sendClickedTile = (tileJSON) => {
-
         socket.emit('click', tileJSON);
     
     }
@@ -237,7 +234,3 @@ function blankDelete(gameObject){
         tile.addEventListener("click", onClickTile);
     });
 }
-
-//~ Communication between front-end & back-end
-
-// preProcessingGame();
