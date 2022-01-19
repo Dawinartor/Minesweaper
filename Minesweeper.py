@@ -102,13 +102,11 @@ class Gamefield:
                 index = y+((x)* self.__fieldSizeY)
                 self.__field[x][y] = Bomb(x, y,index) 
         
-        #~ use main created methods
         createBombLocationList()
         placeBombs()
 
     def placeTiles(self):
-        '''Fills field array with number objects
-        '''
+        '''Fills field array with number objects'''
         for x in range(0,self.__fieldSizeX):
             for y in range(0,self.__fieldSizeY):
 
@@ -120,7 +118,8 @@ class Gamefield:
     def addValue(self):
         '''Manipulates number objects around bombs.
 
-        Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects'''
+        Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects
+        '''
 
         for location in self.__bombLocationList:
             x = location[0]
