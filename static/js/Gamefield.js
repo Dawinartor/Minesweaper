@@ -1,6 +1,7 @@
 //TODO: Add developer faces instead of mines for the bombs
 var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
+var isBomb = false;
 const socket = io();
 
 // this part recieves the modified json
@@ -9,7 +10,6 @@ socket.on("newjson", (data) => {
     blankDelete(gameData)
   });
 
-
 socket.on("initialize", (data) => {
     gameData = JSON.parse(data);
     blankDelete(gameData); 
@@ -17,16 +17,17 @@ socket.on("initialize", (data) => {
 
 socket.on("final", (data) => {
     if (data == "Bomb") {
-        location.reload();
+        isBomb = true;
+        blankDelete(gameData)
+        
+        // location.reload();
     }
     if (data == "YouWin") {
         $('#gamefield').empty();
         $( "p" ).add( "<span>You Win</span>" ).appendTo('#gamefield');
     }
-
+1   
   });
-
-
 
 
 //TODO: Add checking if gameobject arrived in correct form. -> Typescript
@@ -131,32 +132,24 @@ function buildGamefield(gameObject) {
 
 }
 
-
-
 function blankDelete(gameObject){
     $('#gamefield').empty();
 
     for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) {
         let newTile = document.createElement('div');
-        let tileP = document.createElement('p');
-        // newTile.appendChild(tileP)
-
-        tileP.innerHTML = "0"
         newTile.innerHTML = "&nbsp&nbsp"
-
-        tileP.style.visibility = 'hidden'
-        // newTile.style.visibility = 'hidden'
         
+
         if (gameObject.Gamefield.field[i].isLightUp == true) {
             newTile.className = 'blank';
             
             if (gameObject.Gamefield.field[i].number > 0 ){
-                tileP.style.visibility = 'visible'
-                newTile.style.visibility = 'visible'
-                tileP.innerHTML = String(gameObject.Gamefield.field[i].number);
+                
                 newTile.innerHTML = String(gameObject.Gamefield.field[i].number);
             }
-        }          
+        }else if (gameObject.Gamefield.field[i].className == "Bomb" && isBomb == true) {
+            newTile.style.backgroundColor = "red"
+        }           
         else{
             newTile.className = 'tile';
         }
@@ -215,7 +208,8 @@ function blankDelete(gameObject){
      */
     const onClickTile = (clickedTile) => {
 
-        // log in system (console.log) each time which was clicked
+        if (isBomb == false) {
+            // log in system (console.log) each time which was clicked
         logClickedTile(clickedTile);
         
         // collect clicked tile information & generate JSON
@@ -224,7 +218,11 @@ function blankDelete(gameObject){
         
         // send collected json
         sendClickedTile(clickedTileJSON);
+        }
+        
     }
+    
+    
 
     // Get tile elements class from DOM
     const tiles = document.querySelectorAll('.tile');
