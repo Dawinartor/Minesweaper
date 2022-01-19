@@ -25,13 +25,13 @@ class Gamefield:
 
     Attributes
     ----------
-    __field : numpy.ndarray
+    __field: numpy.ndarray
         empty numpy array with objects that represents field
-    __fieldSize : int
+    __fieldSize: int
         size of the field
-    fieldSizeX : int
+    __fieldSizeX: int
         size of the array in x axis
-    fieldSizeY : int
+    __fieldSizeY: int
         size of the array in y axis
     __bombLocationList : list
         contains locations of genereted bombs
@@ -56,6 +56,10 @@ class Gamefield:
         Gets data from GameField and GameFiled.field and returns as a JSON formatted string
     getFieldSize(): int
         Returns size of field
+    getFieldSizeX(): int
+        Return size of X-axe from field
+    getFieldSizeY(): int
+        Return size of Y-axe from field
     getBombLocationList(): list
         Returns list with bombs inside
     getBombCount(): int
@@ -66,8 +70,8 @@ class Gamefield:
     def __init__(self):
         self.__field = np.empty((16,16), dtype=object)
         self.__fieldSize = self.__field.size
-        self.fieldSizeX = np.size(self.__field, 0) # starts from 0
-        self.fieldSizeY  = np.size(self.__field, 1)
+        self.__fieldSizeX = np.size(self.__field, 0) # starts from 0
+        self.__fieldSizeY = np.size(self.__field, 1)
         self.__bombLocationList = [] # define return of placeBombs (tuple list)
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
         self.__openedTileCount = 0
@@ -81,8 +85,8 @@ class Gamefield:
         
         def createBombLocationList(): #TODO: Explain what happens here
             '''Create'''
-            rangeX = range(self.fieldSizeX)
-            rangeY = range(self.fieldSizeY)
+            rangeX = range(self.__fieldSizeX)
+            rangeY = range(self.__fieldSizeY)
             GamefieldTotalSize = product(rangeX, rangeY, repeat=1)
             gamefieldList = list(GamefieldTotalSize)
             self.__bombLocationList = sample(gamefieldList, k=self.__bombCount)
@@ -96,7 +100,7 @@ class Gamefield:
                 x = mockupBomb[0]
                 y = mockupBomb[1]
 
-                index = y+((x)* self.fieldSizeY)
+                index = y+((x)* self.__fieldSizeY)
                 self.__field[x][y] = Bomb(x, y,index) 
         
         #~ use main created methods
@@ -106,12 +110,12 @@ class Gamefield:
     def placeTiles(self):
         '''Fills field array with number objects
         '''
-        for x in range(0,self.fieldSizeX):
-            for y in range(0,self.fieldSizeY):
+        for x in range(0,self.__fieldSizeX):
+            for y in range(0,self.__fieldSizeY):
 
                 if isinstance(self.__field[x][y],Bomb) == True:
                     continue
-                index = y+((x)* self.fieldSizeY)
+                index = y+((x)* self.__fieldSizeY)
                 self.__field[x][y] = Number(x,y,index)
 
     def addValue(self):
@@ -184,25 +188,33 @@ class Gamefield:
 
         gfJson['Gamefield'] = {
             'fieldSize':self.__fieldSize,
-            'fieldSizeX':self.fieldSizeX,
-            'fieldSizeY':self.fieldSizeY,
+            'fieldSizeX':self.__fieldSizeX,
+            'fieldSizeY':self.__fieldSizeY,
             'field': fieldList
             }
         
         return json.dumps(gfJson)
 
     def getFieldSize(self):
-        '''returns __fieldSize'''
+        '''returns size of field'''
         return self.__fieldSize
     
+    def getFieldSizeX(self):
+        '''return size of X-axe from field'''
+        return self.__fieldSizeX
+    
+    def getFieldSizeY(self):
+        '''return size of Y-axe from field'''
+        return self.__fieldSizeY
+    
     def getBombLocationList(self):
-        '''returns __bombLocationList'''
+        '''returns list with bombs inside'''
         return self.__bombLocationList
     
     def getBombCount(self):
-        '''return __bombCount'''
+        '''return total amount of bombs inside field'''
         return self.__bombCount
     
     def getField(self):
-        '''returns __field'''
+        '''returns the fiel'''
         return self.__field
