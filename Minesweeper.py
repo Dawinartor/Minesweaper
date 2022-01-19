@@ -67,7 +67,7 @@ class Gamefield:
     getField(): numPy.array
         Returns the field
     """
-    def __init__(self):
+    def __init__(self): #TODO: Check constructor docstring best-practice
         self.__field = np.empty((16,16), dtype=object)
         self.__fieldSize = self.__field.size
         self.__fieldSizeX = np.size(self.__field, 0) # starts from 0
@@ -81,10 +81,10 @@ class Gamefield:
         self.addValue()
     
     def placeBombs(self):
-        '''Create random generated list of tuples and place out of them Bombs in filed'''
+        '''Places Bombs in __field '''
         
         def createBombLocationList(): #TODO: Explain what happens here
-            '''Create'''
+            '''Creates unique tuples (int, int) and adds them into __bombLocationList'''
             rangeX = range(self.__fieldSizeX)
             rangeY = range(self.__fieldSizeY)
             GamefieldTotalSize = product(rangeX, rangeY, repeat=1)
@@ -93,8 +93,7 @@ class Gamefield:
             
                 
         def placeBombs():
-            '''Iterates through __bombLocationList and creates bomb objects at that coordinate
-            '''
+            '''Iterates through __bombLocationList and creates bomb objects based on containing tuples'''
             for mockupBomb in self.__bombLocationList:
                 #* define x & y coordinates
                 x = mockupBomb[0]
