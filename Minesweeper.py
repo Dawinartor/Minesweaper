@@ -166,7 +166,6 @@ class Gamefield:
         Parameters:
             x (int): Index of x-axe
             y (int): Index of y-axe
-            
         '''
         surroundList = self.__field[x][y].getsurroundList()
         for value in surroundList:
@@ -178,7 +177,27 @@ class Gamefield:
                     pass
 
     def toJSON(self):
-        '''Gets data from GameField and GameFiled.field and returns as a JSON formatted string'''
+        '''
+        Gets data of GameField object and returns as a JSON formatted string
+        
+        Returns:
+            - (string) Gamefield json
+            
+        .. code:: json
+        Example:
+            {
+                'Gamefield': {
+                    'fieldSize': 255,
+                    'fieldSizeX': 16,
+                    'fieldSizeY': 16,
+                    'field': "field": [
+                        {"x": 0, "y": 0, "index": 0, "className": "Bomb"}, 
+                        {"x": 0, "y": 1, "index": 1, "className": "Bomb"}, 
+                        {"x": 0, "y": 2, "index": 2, "className": "Number", "number": 1, "isLightUp": false}
+                     ]
+                }
+            }
+        '''
         gfJson = dict()
         # send islightup value
         fieldList = list()
