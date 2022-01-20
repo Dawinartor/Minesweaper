@@ -199,7 +199,6 @@ class Gamefield:
             }
         '''
         gfJson = dict()
-        # send islightup value
         fieldList = list()
         for row in self.__field:
             for value in row:
@@ -225,25 +224,55 @@ class Gamefield:
         return json.dumps(gfJson)
 
     def getFieldSize(self):
-        '''returns size of field'''
+        '''
+        Returns size of field
+        
+        Returnes:
+            - Gamefield.__fieldSize (int): Size of field
+        '''
         return self.__fieldSize
     
     def getFieldSizeX(self):
-        '''return size of X-axe from field'''
+        '''
+        Returns size x-axe of field
+        
+        Returnes:
+            - Gamefield.__fieldSizeX (int): Size x-axe of field
+        '''
         return self.__fieldSizeX
     
     def getFieldSizeY(self):
-        '''return size of Y-axe from field'''
+        '''
+        Returns size y-axe of field
+        
+        Returnes:
+            - Gamefield.__fieldSizeY (int): Size y-axe of field
+        '''
         return self.__fieldSizeY
     
     def getBombLocationList(self):
-        '''returns list with bombs inside'''
+        '''
+        Returns bomb Location list
+        
+        Returnes:
+            - Gamefield.__bombLocationList (list): Bomb Location list
+        '''
         return self.__bombLocationList
     
     def getBombCount(self):
-        '''return total amount of bombs inside field'''
+        '''
+        Returns total amount of placed bombs
+        
+        Returnes:
+            - Gamefield.__bombCount (int): Total amount of placed bombs
+        '''
         return self.__bombCount
     
     def getField(self):
-        '''returns the fiel'''
+        '''
+        Returns game field
+        
+        Returnes:
+            - Gamefield.__field (NDArray): Game field
+        '''
         return self.__field
