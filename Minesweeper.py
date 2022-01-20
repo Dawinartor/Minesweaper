@@ -81,7 +81,7 @@ class Gamefield:
         self.addValue()
     
     def placeBombs(self):
-        '''Places Bombs in __field '''
+        '''Adds Bomb objects in __field '''
         
         def createBombLocationList(): #TODO: Explain what happens here
             '''Creates unique tuples (int, int) and adds them into __bombLocationList'''
@@ -106,20 +106,17 @@ class Gamefield:
         placeBombs()
 
     def placeTiles(self):
-        '''Fills field array with number objects'''
+        '''Adds Number objects in each empty space of __field'''
         for x in range(0,self.__fieldSizeX):
             for y in range(0,self.__fieldSizeY):
 
                 if isinstance(self.__field[x][y],Bomb) == True:
                     continue
-                index = y+((x)* self.__fieldSizeY)
+                index = y+((x)* self.__fieldSizeY) #FIX: What is going on here?
                 self.__field[x][y] = Number(x,y,index)
 
     def addValue(self):
-        '''Manipulates number objects around bombs.
-
-        Iterates bombLocationList and calls increaseNumber() method of each surrounding Number objects
-        '''
+        '''Increases number attribute in each number object around bombs'''
 
         for location in self.__bombLocationList:
             x = location[0]
@@ -134,9 +131,17 @@ class Gamefield:
                         continue
 
     def isLightUpChanger(self,x,y):
-        '''Checks and changes isLightup of a given tile.
-
-        If the tile is not bomb it changes isLightUp and also If the tile is "blank" it calls blankOpener()'''
+        '''
+        Checks if isLightup attribute and changes isLightup of a tile object.
+  
+        Parameters:
+            x (int): Index of x-axe
+            y (int): Index of y-axe
+          
+        Returns:
+            - "Bomb" - If bomb object was lighted up during function process
+            - "You Win" - If all number objects are lighted up
+        '''
         x,y = int(x),int(y)
         tile = self.__field[x][y]
         
