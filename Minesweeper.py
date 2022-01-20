@@ -160,7 +160,14 @@ class Gamefield:
                 return "You Win"
                               
     def blankOpener(self,x,y):
-        '''Check the surrounding of the given tile for isLightUp and calls back isLightUpChanger()'''
+        '''
+        Checks each surrounding tile object for number attribute if its zero switch isLightUp to true
+        
+        Parameters:
+            x (int): Index of x-axe
+            y (int): Index of y-axe
+            
+        '''
         surroundList = self.__field[x][y].getsurroundList()
         for value in surroundList:
             if not (value[0]<0 or value[1]<0 or value[0]>15 or value[1]>15): #cheking if x or y value is outside the field
