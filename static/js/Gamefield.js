@@ -1,33 +1,34 @@
 //TODO: Add developer faces instead of mines for the bombs
 var gamefield = document.getElementById('gamefield');
 var gameData; // data from back-end 
+var isBomb = false;
 const socket = io();
 
 // this part recieves the modified json
-socket.on("json", (arg) => {
-    console.log(arg); 
+socket.on("newjson", (data) => {
+    gameData = JSON.parse(data);
+    blankDelete(gameData)
   });
 
-/**
- * Preprocessing the JSON gameobject to get all values to work with
- * 
- * @param {JSON} backEndJSON - Back-End JOSN object 
- */
-function preProcessingGame() {
-    // get game object from backend
-    fetch('/startGame')
-        .then(function(response) {
-            return response.text() // takes Response text value
-        })
-        .then(function(text) {
-            gameData = JSON.parse(text);
-            console.log(gameData);
-        })
-        .then(function() {
-            buildGamefield(gameData);
-        })
+socket.on("initialize", (data) => {
+    gameData = JSON.parse(data);
+    blankDelete(gameData); 
+  });
 
-}
+socket.on("final", (data) => {
+    if (data == "Bomb") {
+        isBomb = true;
+        blankDelete(gameData)
+        
+        // location.reload();
+    }
+    if (data == "YouWin") {
+        $('#gamefield').empty();
+        $( "p" ).add( "<span>You Win</span>" ).appendTo('#gamefield');
+    }
+1   
+  });
+
 
 //TODO: Add checking if gameobject arrived in correct form. -> Typescript
 
@@ -57,6 +58,7 @@ function buildGamefield(gameObject) {
         gamefield.appendChild(newTile);
     }
 
+    
 
     // Function to log each click in console
     const logClickedTile = (event) => {
@@ -99,7 +101,7 @@ function buildGamefield(gameObject) {
 
     const sendClickedTile = (tileJSON) => {
 
-        socket.emit('json', tileJSON);
+        socket.emit('click', tileJSON);
     
     }
 
@@ -111,9 +113,11 @@ function buildGamefield(gameObject) {
 
         // log in system (console.log) each time which was clicked
         logClickedTile(clickedTile);
+        
         // collect clicked tile information & generate JSON
         let clickedTileJSON = getTileInformations(clickedTile);
         console.log(clickedTileJSON);
+        
         // send collected json
         sendClickedTile(clickedTileJSON);
     }
@@ -128,6 +132,103 @@ function buildGamefield(gameObject) {
 
 }
 
-//~ Communication between front-end & back-end
+function blankDelete(gameObject){
+    $('#gamefield').empty();
 
-preProcessingGame();
+    for (let i = 0; i < gameObject.Gamefield.fieldSize; i++) {
+        let newTile = document.createElement('div');
+        newTile.innerHTML = "&nbsp&nbsp"
+        
+
+        if (gameObject.Gamefield.field[i].isLightUp == true) {
+            newTile.className = 'blank';
+            
+            if (gameObject.Gamefield.field[i].number > 0 ){
+                
+                newTile.innerHTML = String(gameObject.Gamefield.field[i].number);
+            }
+        }else if (gameObject.Gamefield.field[i].className == "Bomb" && isBomb == true) {
+            newTile.style.backgroundColor = "red"
+        }           
+        else{
+            newTile.className = 'tile';
+        }
+        newTile.setAttribute('tileIndex', String(gameObject.Gamefield.field[i].index));
+        newTile.setAttribute('coordinate-x', String(gameObject.Gamefield.field[i].x)); // is row
+        newTile.setAttribute('coordinate-y', String(gameObject.Gamefield.field[i].y)); // is column
+        gamefield.appendChild(newTile);
+    }
+    // Function to log each click in console
+    const logClickedTile = (event) => {
+        // takes clicked tile in variable
+        let clickedTile = event.target;
+        
+        //~ for debugging
+    /*
+        console.log( 
+            clickedTile.getAttribute('tileIndex') + " /",
+            clickedTile.getAttribute('className') + " /",
+            clickedTile.getAttribute('coordinate-x') + " /",
+            clickedTile.getAttribute('coordinate-y') 
+        );
+    */
+    };
+
+    // Generates JSON from data
+    const createJSON = (valueX, valueY) => {
+        let returnJSON = {"tile": {
+            "x": valueX,
+            "y": valueY
+        }};
+        return returnJSON;
+    }
+
+    // collects information of clicked tile 
+    const getTileInformations = (event) => {
+        // takes clicked tile in variable
+        let clickedTile = event.target;
+        
+        let tileIndex = clickedTile.getAttribute('tileIndex');
+        let className = clickedTile.getAttribute('className');
+        let valueX = clickedTile.getAttribute('coordinate-x');
+        let valueY = clickedTile.getAttribute('coordinate-y');
+
+        // generates JSON with needed information
+        return createJSON(valueX, valueY);
+    }
+
+    const sendClickedTile = (tileJSON) => {
+        socket.emit('click', tileJSON);
+    
+    }
+
+    /**
+     * 
+     * @param {*} clickedTile 
+     */
+    const onClickTile = (clickedTile) => {
+
+        if (isBomb == false) {
+            // log in system (console.log) each time which was clicked
+        logClickedTile(clickedTile);
+        
+        // collect clicked tile information & generate JSON
+        let clickedTileJSON = getTileInformations(clickedTile);
+        console.log(clickedTileJSON);
+        
+        // send collected json
+        sendClickedTile(clickedTileJSON);
+        }
+        
+    }
+    
+    
+
+    // Get tile elements class from DOM
+    const tiles = document.querySelectorAll('.tile');
+
+    // Assign event listener with callback to every button:
+    tiles.forEach((tile) => {
+        tile.addEventListener("click", onClickTile);
+    });
+}
