@@ -57,8 +57,8 @@ class Gamefield:
         self.__bombCount = 40 # based on 40 bombs for 256 Tiles 
         self.__openedTileCount = 0
         
-        self.placeTiles()
         self.placeBombs()
+        self.placeTiles()
         self.addValue()
     
     def placeBombs(self):
@@ -76,8 +76,7 @@ class Gamefield:
                 x = mockupBomb[0]
                 y = mockupBomb[1]
 
-                index = y+((x)* self.fieldSizeY)
-                self.__field[x][y] = Bomb(x, y,index) 
+                self.__field[x][y] = Bomb(x, y,None) 
         
         #~ use main created methods
         createBombLocationList()
@@ -85,13 +84,16 @@ class Gamefield:
 
     def placeTiles(self):
         '''Fills field array with number objects
-        '''
+        ''' 
         for x in range(0,self.fieldSizeX):
             for y in range(0,self.fieldSizeY):
+                #
+                index = y+ (x * self.fieldSizeY)#defines indexes based on coordinates 
 
                 if isinstance(self.__field[x][y],Bomb) == True:
-                    continue
-                index = y+((x)* self.fieldSizeY)
+                    self.__field[x][y].changeIndex(index)
+                    continue 
+                
                 self.__field[x][y] = Number(x,y,index)
 
     def addValue(self):

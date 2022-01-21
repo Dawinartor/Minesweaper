@@ -1,3 +1,4 @@
+
 class Tile:
     '''
     A class to represent a Tile.
@@ -47,6 +48,10 @@ class Tile:
         '''returns __tileIndex'''
         return self.__tileIndex
 
+    def changeIndex(self,newIndex):
+        '''changes __tileIndex to given new one'''
+        self.__tileIndex = newIndex
+        
     def getLocation(self):
         '''returns __x and __y'''
         return self.__x,self.__y
